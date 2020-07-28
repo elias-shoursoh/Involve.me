@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/*Forgot password POM*/
 public class ForgotPasswordPage extends BasePage {
 
 	@FindBy(css = "[name=\"email\"]")
@@ -17,6 +18,7 @@ public class ForgotPasswordPage extends BasePage {
 	@FindBy(css = ".alert-success")
 	private WebElement successMsg;
 
+	// constructor
 	public ForgotPasswordPage(WebDriver driver) {
 		super(driver);
 	}

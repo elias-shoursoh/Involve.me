@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/*Create new account POM*/
 public class CreateNewAccountPage extends BasePage {
 
 	@FindBy(css = "#user-name")
@@ -23,6 +24,7 @@ public class CreateNewAccountPage extends BasePage {
 	@FindBy(css = ".btn-lg")
 	private WebElement registerBtn;
 
+	// constructor
 	public CreateNewAccountPage(WebDriver driver) {
 		super(driver);
 	}

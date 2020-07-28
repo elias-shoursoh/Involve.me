@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/*Top menu bar POM*/
 public class TopMenuBar extends BasePage {
 
 	@FindBy(css = ".login")
@@ -13,6 +14,7 @@ public class TopMenuBar extends BasePage {
 	@FindBy(css = ".register")
 	private WebElement registerLink;
 
+	// constructor
 	public TopMenuBar(WebDriver driver) {
 		super(driver);
 	}

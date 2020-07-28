@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/*Login POM*/
 public class LoginPage extends BasePage {
 
 	@FindBy(css = "[name=\"email\"]")
@@ -21,6 +22,7 @@ public class LoginPage extends BasePage {
 	@FindBy(css = ".alert")
 	private WebElement invalidCredsMsg;
 
+	// constructor
 	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
