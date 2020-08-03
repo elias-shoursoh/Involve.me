@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-/*Base class that wraps selenium operations and will be inherited by all POMs*/
+/*Base class that wraps Selenium operations and will be inherited by all POMs*/
 public class BasePage {
 
 	WebDriver driver;
@@ -44,7 +44,7 @@ public class BasePage {
 		el.clear();
 		el.sendKeys(txt);
 	}
-	
+
 	// clears text field
 	public void clearTextBox(WebElement el) {
 		highlightElement(el, "green");
@@ -70,6 +70,22 @@ public class BasePage {
 		return el.getText();
 	}
 
+	// get element from a webelement list according to a passed string
+	public WebElement getElementFromListByText(List<WebElement> list, By locator, String txt) {
+		for (WebElement elem : list) {
+			if (locator != null) { // in case locator is required
+				if (getText(elem.findElement(locator)).equalsIgnoreCase(txt)) {
+					return elem;
+				} else { // in case no locator is required
+					if (getText(elem).equalsIgnoreCase(txt)) {
+						return elem;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	// returns Select object
 	public Select select(WebElement selection) {
 		Select select = new Select(selection);
@@ -92,9 +108,16 @@ public class BasePage {
 	}
 
 	// returns webelements list according to css selector
-	public List<WebElement> findElemList(String selector) {
+	public List<WebElement> getElemList(String selector) {
 		sleep(500);
 		return driver.findElements(By.cssSelector(selector));
+	}
+
+	// returns webelement list of a certain passed wrapper element according to a By
+	// object
+	public List<WebElement> getElemList(WebElement wrapper, By locator) {
+		sleep(500);
+		return wrapper.findElements(locator);
 	}
 
 	// returns true if given element is displayed on page

@@ -2,13 +2,14 @@ package pageobject;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Projects POM*/
+/*Projects POM - Where projects are added and edited*/
 public class ProjectsPage extends BasePage {
 
 	@FindBy(css = "#app .px-4 a")
@@ -17,9 +18,9 @@ public class ProjectsPage extends BasePage {
 	private WebElement createNewWorkspaceBtn;
 	@FindBy(css = "[data-icon=\"chevron-down\"]")
 	private WebElement workspaceEditBtn;
-	@FindBy(css = ".dropdown.mr-3 .hover\\:bg-gray-600")
+	@FindBy(css = ".mr-3 .hover\\:bg-gray-600")
 	private WebElement renameWorkspaceBtn;
-	@FindBy(css = ".dropdown.mr-3 .text-red-600")
+	@FindBy(css = ".mr-3 .text-red-600")
 	private WebElement deleteWorkspaceBtn;
 	@FindBy(css = "[placeholder=\"My Workspace\"]")
 	private WebElement renameField;
@@ -37,15 +38,21 @@ public class ProjectsPage extends BasePage {
 	private WebElement searchBtn;
 	@FindBy(css = "[type=\"text\"]")
 	private WebElement searchField;
+	@FindBy(css = "#confirm-delete-button")
+	private WebElement confirmDeleteProjectBtn; // Project deletion button
+	@FindBy(css = "form [type=\"button\"]")
+	private WebElement cancelProjectDeletionBtn; // Project cancel deletion button
+	@FindBy(css = ".md\\:flex-wrap > div")
+	private List<WebElement> projectsBlocks;
+	@FindBy(css = ".mt-6 a")
+	private List<WebElement> workspacesBlocks;
 
-	// Will be used to find webelement list of all existing workspaces
-	String workspacesMenuSelector = ".mt-6 a";
-
-	// TODO: maybe this should be transfered to a FindBy object; this will get me
-	// the text part in each project
-	String projectsListSelector = ".md\\:flex-wrap .mb-3";
-	// Will be used to find webelement list of all existing projects
-	String projectsInListSelector = ".md\\:flex-wrap";
+	// Drop down menu buttons for each project
+	private String deleteProject = "delete project";
+	private String moveToWorkSpace = "move to workspace";
+	// selectors for each project
+	private By projectTitle = By.cssSelector("h1 a");
+	private By projectDropDownBtns = By.cssSelector(".dropdown-menu button");
 
 	// constructor
 	public ProjectsPage(WebDriver driver) {
@@ -57,6 +64,7 @@ public class ProjectsPage extends BasePage {
 		click(startBtn);
 	}
 
+	@Step("Create new workspace {name}")
 	public void createWorkSpace(String name) {
 		click(createNewWorkspaceBtn);
 		fillText(newWorkspaceNameField, name);
@@ -65,8 +73,7 @@ public class ProjectsPage extends BasePage {
 
 	@Step("Renaming workspace {oldName} to: {newName}")
 	public void renameWorkSpace(String oldName, String newName) {
-		List<WebElement> workspaces = findElemList(workspacesMenuSelector);
-		for (WebElement workspace : workspaces) {
+		for (WebElement workspace : workspacesBlocks) {
 			if (getText(workspace).equals(oldName)) {
 				click(workspace);
 				click(workspaceEditBtn);
@@ -79,8 +86,7 @@ public class ProjectsPage extends BasePage {
 
 	@Step("Deleting workspace: {name}")
 	public void deleteWorkspace(String name) {
-		List<WebElement> workspaces = findElemList(workspacesMenuSelector);
-		for (WebElement workspace : workspaces) {
+		for (WebElement workspace : workspacesBlocks) {
 			if (getText(workspace).equals(name)) {
 				click(workspace);
 				click(workspaceEditBtn);
@@ -98,15 +104,31 @@ public class ProjectsPage extends BasePage {
 		submit(searchField);
 	}
 
+	@Step("Delete project {title} from workspace")
+	public void deleteProject(String title) {
+		click(getProjectDropDownBtn(deleteProject, title));
+		click(confirmDeleteProjectBtn);
+	}
+
+	@Step("Cancel project deletion")
+	public void cancelProjectDeletion(String title) {
+		click(getProjectDropDownBtn(deleteProject, title));
+		click(cancelProjectDeletionBtn);
+	}
+
 	@Step("Get number of existing workspaces")
 	public int getWorkspacesNumber() {
-		List<WebElement> workspaces = findElemList(workspacesMenuSelector);
-		return workspaces.size();
+		return workspacesBlocks.size();
 	}
 
 	@Step("Get number of existing projects")
 	public int getProjectsNumber() {
-		List<WebElement> projects = findElemList(projectsInListSelector);
-		return projects.size();
+		return projectsBlocks.size();
+	}
+
+	private WebElement getProjectDropDownBtn(String BtnName, String projectName) {
+		List<WebElement> drpdwnBtns = getElemList(getElementFromListByText(projectsBlocks, projectTitle, projectName),
+				projectDropDownBtns);
+		return getElementFromListByText(drpdwnBtns, null, BtnName);
 	}
 }
