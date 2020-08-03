@@ -2,6 +2,7 @@ package pageobject;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,9 +49,13 @@ public class TemplatesPage extends BasePage {
 	private WebElement personalityTestCatNumber;
 	@FindBy(css = "#template-gallery tbody tr")
 	private List<WebElement> templatesBlocks;
-	
-	// TODO: Make this to be By object??
-	private String chooseBtns = "tr .btn.btn-primary";
+
+	// selectors for each template
+	private By chooseBtns = By.cssSelector("a .btn.btn-primary");
+	private By templateTitle = By.cssSelector("div.details-container");
+
+	// Choose button's name
+	private String choose = "choose";
 
 	// constructor
 	public TemplatesPage(WebDriver driver) {
@@ -102,8 +107,49 @@ public class TemplatesPage extends BasePage {
 		click(personalityTestCategory);
 	}
 
+	@Step("Select template {template}")
+	public void chooseTemplate(String template) {
+		WebElement btn = getTemplateChooseBtn(choose, template);
+		moveToElement(btn);
+		click(btn);
+	}
+
 	@Step("Get number of displayed templates in page")
 	public int getTemplatesNumber() {
 		return templatesBlocks.size();
+	}
+
+	@Step("Get the number displayed next to category name {catName}")
+	public int getCategoryDisplayedNumber(String catName) {
+		switch (catName) {
+		case "all":
+			return Integer.parseInt(getText(allCatNumber));
+		case "quiz":
+			return Integer.parseInt(getText(quizCatNumber));
+		case "survey":
+			return Integer.parseInt(getText(surveyCatNumber));
+		case "calculator":
+			return Integer.parseInt(getText(calculatorCatNumber));
+		case "form":
+			return Integer.parseInt(getText(formCatNumber));
+		case "payment form":
+			return Integer.parseInt(getText(paymentCatNumber));
+		case "lead page":
+			return Integer.parseInt(getText(leadPageCatNumber));
+		case "promotion":
+			return Integer.parseInt(getText(promotionCatNumber));
+		case "personality test":
+			return Integer.parseInt(getText(personalityTestCatNumber));
+		default:
+			return 0;
+		}
+	}
+
+	// method that returns the requested Choose button's element for the required
+	// template
+	private WebElement getTemplateChooseBtn(String BtnName, String templateName) {
+		List<WebElement> eBtns = getElemList(getElementFromListByText(templatesBlocks, templateTitle, templateName),
+				chooseBtns);
+		return getElementFromListByText(eBtns, null, BtnName);
 	}
 }

@@ -58,7 +58,7 @@ public class BasePage {
 	}
 
 	// move to a given element
-	public void moveToItem(WebElement el) {
+	public void moveToElement(WebElement el) {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(el).perform();
 	}
@@ -70,7 +70,7 @@ public class BasePage {
 		return el.getText();
 	}
 
-	// get element from a webelement list according to a passed string
+	// get element from a web element list according to a passed string
 	public WebElement getElementFromListByText(List<WebElement> list, By locator, String txt) {
 		for (WebElement elem : list) {
 			if (locator != null) { // in case locator is required
@@ -107,13 +107,14 @@ public class BasePage {
 		alert.accept();
 	}
 
-	// returns webelements list according to css selector
-	public List<WebElement> getElemList(String selector) {
-		sleep(500);
-		return driver.findElements(By.cssSelector(selector));
-	}
+//	// returns web elements list according to CSS selector
+//	public List<WebElement> getElemList(String selector) {
+//		sleep(500);
+//		return driver.findElements(By.cssSelector(selector));
+//	}
 
-	// returns webelement list of a certain passed wrapper element according to a By
+	// returns web elements list of a certain passed wrapper web element according
+	// to a By
 	// object
 	public List<WebElement> getElemList(WebElement wrapper, By locator) {
 		sleep(500);

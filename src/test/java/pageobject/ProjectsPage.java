@@ -47,12 +47,13 @@ public class ProjectsPage extends BasePage {
 	@FindBy(css = ".mt-6 a")
 	private List<WebElement> workspacesBlocks;
 
-	// Drop down menu buttons for each project
-	private String deleteProject = "delete project";
-	private String moveToWorkSpace = "move to workspace";
 	// selectors for each project
 	private By projectTitle = By.cssSelector("h1 a");
 	private By projectDropDownBtns = By.cssSelector(".dropdown-menu button");
+
+	// Drop down menu buttons names for each project
+	private String deleteProject = "delete project";
+	private String moveToWorkSpace = "move to workspace";
 
 	// constructor
 	public ProjectsPage(WebDriver driver) {
@@ -126,6 +127,8 @@ public class ProjectsPage extends BasePage {
 		return projectsBlocks.size();
 	}
 
+	// method that returns the requested button' element from the drop down menu for require
+	// project
 	private WebElement getProjectDropDownBtn(String BtnName, String projectName) {
 		List<WebElement> drpdwnBtns = getElemList(getElementFromListByText(projectsBlocks, projectTitle, projectName),
 				projectDropDownBtns);
