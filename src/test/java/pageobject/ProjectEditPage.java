@@ -28,12 +28,27 @@ public class ProjectEditPage extends BasePage {
 	private List<WebElement> pages;
 	@FindBy(css = "#tab1contentitems p")
 	private List<WebElement> contentList;
+	@FindBy(css = "for=\"select-default\"")
+	private WebElement thankYouPageTypeBtn;
+	@FindBy(css = "[for=\"select-outcomes\"]")
+	private WebElement outcomePagesTypeBtn;
 
 	// TODO: finish here with at least one editting of a selected project
 
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
 		super(driver);
+	}
+
+	public void editProject(String projectName, String projectType) {
+		fillText(projectNameField, projectName);
+		switch (projectType) {
+		case "thank you page":
+			click(thankYouPageTypeBtn);
+		case "outcome pages":
+			click(outcomePagesTypeBtn);
+		}
+		click(startEditingBtn);
 	}
 
 }
