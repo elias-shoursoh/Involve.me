@@ -107,12 +107,6 @@ public class BasePage {
 		alert.accept();
 	}
 
-//	// returns web elements list according to CSS selector
-//	public List<WebElement> getElemList(String selector) {
-//		sleep(500);
-//		return driver.findElements(By.cssSelector(selector));
-//	}
-
 	// returns web elements list of a certain passed wrapper web element according
 	// to a By
 	// object

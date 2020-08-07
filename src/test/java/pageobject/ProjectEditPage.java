@@ -29,6 +29,8 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "#tab1contentitems p")
 	private List<WebElement> contentList;
 
+	// TODO: finish here with at least one editting of a selected project
+
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
 		super(driver);
