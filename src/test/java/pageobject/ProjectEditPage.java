@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import io.qameta.allure.Step;
+
 public class ProjectEditPage extends BasePage {
 
 	@FindBy(css = "input#project-name")
@@ -32,15 +34,18 @@ public class ProjectEditPage extends BasePage {
 	private WebElement thankYouPageTypeBtn;
 	@FindBy(css = "[for=\"select-outcomes\"]")
 	private WebElement outcomePagesTypeBtn;
+	@FindBy(css = ".vcentered.bgfixed")
+	private WebElement dropZone;
 
-	// TODO: finish here with at least one editting of a selected project
+	// TODO: finish here with at least one editing of a selected project
 
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public void editProject(String projectName, String projectType) {
+	@Step("Prepare project for editing - project name: {projectName}, project type: {projectType}")
+	public void editProjectPrep(String projectName, String projectType) {
 		fillText(projectNameField, projectName);
 		switch (projectType) {
 		case "thank you page":
@@ -51,4 +56,8 @@ public class ProjectEditPage extends BasePage {
 		click(startEditingBtn);
 	}
 
+	@Step("Add the element {element} to project")
+	public void addElementToProject(String element) {
+		dragAndDrop(contentElementsBtn, dropZone);
+	}
 }

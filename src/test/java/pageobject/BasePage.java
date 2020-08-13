@@ -63,6 +63,17 @@ public class BasePage {
 		actions.moveToElement(el).perform();
 	}
 
+	// drag and drop elements
+	public void dragAndDrop(WebElement el, WebElement dropZone) {
+		Actions actions = new Actions(driver);
+		actions.dragAndDrop(el, dropZone).build().perform();
+		sleep(1000);
+		//TODO: fix the offset here.
+		actions.moveByOffset(725, 268).contextClick().perform();
+		sleep(1000);
+		actions.click();
+	}
+
 	// get text operation
 	public String getText(WebElement el) {
 		wait.until(ExpectedConditions.visibilityOf(el));
