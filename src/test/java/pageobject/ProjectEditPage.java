@@ -12,6 +12,8 @@ public class ProjectEditPage extends BasePage {
 
 	@FindBy(css = "input#project-name")
 	private WebElement projectNameField;
+	@FindBy(css = ".nav-link.project-name")
+	private WebElement projectName;
 	@FindBy(css = ".swal-button.swal-button--confirm")
 	private WebElement startEditingBtn;
 	@FindBy(css = "#bs-example-navbar-collapse-1 li:nth-child(4) a")
@@ -26,10 +28,15 @@ public class ProjectEditPage extends BasePage {
 	private WebElement publishBtn;
 	@FindBy(css = ".btn-secondary.preview-btn")
 	private WebElement designPreviewBtn;
+	@FindBy(css = ".e-page-item.current .add-page-container button")
+	private WebElement addNewSlideBtn; // Add new slide button's locator is true only if the current slide is the one
+										// before the last
 	@FindBy(css = ".e-pages-container.fitsNavigation .e-page-management")
 	private List<WebElement> pages;
 	@FindBy(css = "#tab1contentitems p")
 	private List<WebElement> contentList;
+	@FindBy(css = ".e-pages-container .e-page-management")
+	private List<WebElement> slidesList;
 	@FindBy(css = "for=\"select-default\"")
 	private WebElement thankYouPageTypeBtn;
 	@FindBy(css = "[for=\"select-outcomes\"]")
@@ -42,6 +49,16 @@ public class ProjectEditPage extends BasePage {
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
 		super(driver);
+	}
+
+	@Step("Click SAVE & EXIT button")
+	public void clickSaveAndExit() {
+		click(saveAndExitBt);
+	}
+
+	@Step("Click SETTINGS button")
+	public void clickSettings() {
+		click(settingsLinkBtn);
 	}
 
 	@Step("Prepare project for editing - project name: {projectName}, project type: {projectType}")
@@ -59,5 +76,26 @@ public class ProjectEditPage extends BasePage {
 	@Step("Add the element {element} to project")
 	public void addElementToProject(String element) {
 		dragAndDrop(contentElementsBtn, dropZone);
+	}
+
+	public void clickOneBeforeLastSlide() {
+		// moving the slide that is one before the last
+		click(slidesList.get(slidesList.size() - 2));
+	}
+
+	@Step("Add new slide to project")
+	public void addNewSlide() {
+		clickOneBeforeLastSlide();
+		click(addNewSlideBtn);
+	}
+
+	@Step("Get project's slides number")
+	public int slidesNumber() {
+		return slidesList.size();
+	}
+
+	@Step("Get project's name")
+	public String getProjectName() {
+		return getText(projectName);
 	}
 }
