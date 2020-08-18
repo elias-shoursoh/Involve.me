@@ -37,6 +37,10 @@ public class ProjectEditPage extends BasePage {
 	private List<WebElement> contentList;
 	@FindBy(css = ".e-pages-container .e-page-management")
 	private List<WebElement> slidesList;
+	@FindBy(css = "[title=\"Delete page\"]")
+	private List<WebElement> deleteSlideBtns;
+	@FindBy(css = ".swal-button--confirm")
+	private WebElement confirmDeleteSlideBtn;
 	@FindBy(css = "for=\"select-default\"")
 	private WebElement thankYouPageTypeBtn;
 	@FindBy(css = "[for=\"select-outcomes\"]")
@@ -61,7 +65,7 @@ public class ProjectEditPage extends BasePage {
 		click(settingsLinkBtn);
 	}
 
-	@Step("Prepare project for editing - project name: {projectName}, project type: {projectType}")
+	@Step("Open new project for editing - project name: {projectName}, project type: {projectType}")
 	public void editProjectPrep(String projectName, String projectType) {
 		fillText(projectNameField, projectName);
 		switch (projectType) {
@@ -75,7 +79,11 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Add the element {element} to project")
 	public void addElementToProject(String element) {
-		dragAndDrop(contentElementsBtn, dropZone);
+		for (WebElement content : contentList) {
+			if (getText(content).equalsIgnoreCase(element)) {
+				dragAndDrop(content, dropZone);
+			}
+		}
 	}
 
 	public void clickOneBeforeLastSlide() {
@@ -87,6 +95,13 @@ public class ProjectEditPage extends BasePage {
 	public void addNewSlide() {
 		clickOneBeforeLastSlide();
 		click(addNewSlideBtn);
+	}
+
+	@Step("Delete slide number: {slideNumber}")
+	public void deleteSlide(int slideNumber) {
+		// will delete slide according to its given number
+		click(deleteSlideBtns.get(slideNumber));
+		click(confirmDeleteSlideBtn);
 	}
 
 	@Step("Get project's slides number")

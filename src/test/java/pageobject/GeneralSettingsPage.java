@@ -10,11 +10,11 @@ public class GeneralSettingsPage extends BasePage {
 
 	@FindBy(css = "div.flex.justify-between span")
 	private WebElement publishBtn;
-	@FindBy(css = "")
+	@FindBy(css = "#project-name")
 	private WebElement projectNameField;
-	@FindBy(css = "")
+	@FindBy(css = ".mb-4.hidden")
 	private WebElement editProjectBtn;
-	@FindBy(css = "")
+	@FindBy(css = "#general-settings button span")
 	private WebElement updateSettingsBtn;
 
 	// constructor
