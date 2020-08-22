@@ -46,6 +46,8 @@ public class ProjectsPage extends TopNavigateBar {
 	private WebElement noLinkWarningPopUp;
 	@FindBy(css = ".swal-button--cancelCustom")
 	private WebElement closeWarningPopUpBtn;
+	@FindBy(css = ".container .flex.text-lg span")
+	private WebElement projectPageTitle;
 
 	@FindBy(css = ".md\\:flex-wrap > div")
 	private List<WebElement> projectsBlocks;
@@ -183,6 +185,10 @@ public class ProjectsPage extends TopNavigateBar {
 	@Step("Get number of existing projects")
 	public int getProjectsNumber() {
 		return projectsBlocks.size();
+	}
+
+	public String getTitle() {
+		return getText(projectPageTitle);
 	}
 
 	// clicks on a specific project drop down arrow and returns the element
