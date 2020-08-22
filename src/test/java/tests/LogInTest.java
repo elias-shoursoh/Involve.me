@@ -13,7 +13,7 @@ import utils.Configuration;
 
 public class LogInTest extends BaseTest {
 
-	private String title = "Workspaces";
+	private final String title = "Workspaces";
 
 	@Test(priority = 1, description = "Valid Log in")
 	@Severity(SeverityLevel.BLOCKER)
