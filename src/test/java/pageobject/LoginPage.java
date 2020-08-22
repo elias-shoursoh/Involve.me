@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import io.qameta.allure.Step;
 
 /*Login POM*/
-public class LoginPage extends BasePage {
+public class LoginPage extends TopMenuBar {
 
 	@FindBy(css = "[name=\"email\"]")
 	private WebElement emailField;

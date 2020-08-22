@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-public class TemplatesPage extends BasePage {
+public class TemplatesPage extends TopNavigateBar {
 
 	@FindBy(css = "a#filter-all")
 	private WebElement allCategory;

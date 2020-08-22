@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-public class AnalyticsPage extends BasePage {
+public class AnalyticsPage extends TopNavigateBar {
 
 	@FindBy(css = ".mr-1.text-gray-600")
 	private WebElement resultsBtn; // in case a project was selected

@@ -31,6 +31,8 @@ public class TemplateConfirmationPage extends BasePage {
 	@FindBy(css = "p.feedback-text")
 	private WebElement feebackTxt;
 
+	// TODO: Quizes have been changed here. should cancel the preview tryHistoryTemplate()
+
 	// constructor
 	public TemplateConfirmationPage(WebDriver driver) {
 		super(driver);

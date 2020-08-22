@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-public class PublishPage extends BasePage {
+public class PublishPage extends TopNavigateBar {
 
 	@FindBy(css = "h1.e-title")
 	private WebElement shareProjectTitle;

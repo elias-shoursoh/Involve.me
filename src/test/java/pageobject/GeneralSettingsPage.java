@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-public class GeneralSettingsPage extends BasePage {
+public class GeneralSettingsPage extends TopNavigateBar {
 
 	@FindBy(css = "div.flex.justify-between span")
 	private WebElement publishBtn;

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-public class ProjectTypePage extends BasePage {
+public class ProjectTypePage extends TopNavigateBar {
 
 	@FindBy(css = ".blank div.icon")
 	private WebElement startFromScratchBtn;

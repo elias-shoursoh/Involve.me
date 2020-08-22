@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import io.qameta.allure.Step;
 
 /*Projects POM - Where projects are added and edited*/
-public class ProjectsPage extends BasePage {
+public class ProjectsPage extends TopNavigateBar {
 
 	@FindBy(css = "#app .px-4 a")
 	private WebElement startBtn;
@@ -123,12 +123,13 @@ public class ProjectsPage extends BasePage {
 	}
 
 	@Step("Delete project {title} from workspace")
-	public void deleteProject(String title) {
+	public void deleteProject(String projectName) {
 		for (WebElement project : projectsBlocks) {
-			if (getText(project).contains(title)) {
-				WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
-				click(dropDownBtn);
-				click(dropDownBtn.findElement(By.cssSelector(".items-center.mb-2 .text-red-600")));
+			if (getText(project).contains(projectName)) {
+				// getting drop down arrow element after clicking it
+				WebElement dropDownBtn = clickDropDownBtn(project);
+				// clicking on delete project button
+				click(dropDownBtn.findElement(By.cssSelector(".justify-right li:nth-child(9) button")));
 				break;
 			}
 		}
@@ -137,17 +138,31 @@ public class ProjectsPage extends BasePage {
 	}
 
 	@Step("Cancel project deletion")
-	public void cancelProjectDeletion(String title) {
+	public void cancelProjectDeletion(String projectName) {
 		for (WebElement project : projectsBlocks) {
-			if (getText(project).contains(title)) {
-				WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
-				click(dropDownBtn);
-				click(dropDownBtn.findElement(By.cssSelector(".items-center.mb-2 .text-red-600")));
+			if (getText(project).contains(projectName)) {
+				// getting drop down arrow element after clicking it
+				WebElement dropDownBtn = clickDropDownBtn(project);
+				// clicking on delete project button
+				click(dropDownBtn.findElement(By.cssSelector(".justify-right li:nth-child(9) button")));
 				break;
 			}
 		}
 		// click(getProjectDropDownBtn(deleteProject, title));
 		click(cancelProjectDeletionBtn);
+	}
+
+	@Step("Go to project's analytics page")
+	public void clickAnalytics(String projectName) {
+		for (WebElement project : projectsBlocks) {
+			if (getText(project).contains(projectName)) {
+				// getting drop down arrow element after clicking it
+				WebElement dropDownBtn = clickDropDownBtn(project);
+				// clicking on Analytics button
+				click(dropDownBtn.findElement(By.cssSelector(".justify-right li:nth-child(4) a")));
+				break;
+			}
+		}
 	}
 
 	@Step("Select {tabName} tab")
@@ -168,6 +183,13 @@ public class ProjectsPage extends BasePage {
 	@Step("Get number of existing projects")
 	public int getProjectsNumber() {
 		return projectsBlocks.size();
+	}
+
+	// clicks on a specific project drop down arrow and returns the element
+	private WebElement clickDropDownBtn(WebElement project) {
+		WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
+		click(dropDownBtn);
+		return dropDownBtn;
 	}
 
 //	// method that returns the requested button' element from the drop down menu for
