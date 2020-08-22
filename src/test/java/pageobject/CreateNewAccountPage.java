@@ -17,7 +17,7 @@ public class CreateNewAccountPage extends BasePage {
 	private WebElement emailField;
 	@FindBy(css = "#register-password")
 	private WebElement passwordField;
-	@FindBy(css = "[role=\"checkbox\"]")
+	@FindBy(css = "#recaptcha-anchor")
 	private WebElement notRobotCheckBox;
 	@FindBy(css = "#terms")
 	private WebElement termsCheckBox;

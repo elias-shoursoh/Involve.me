@@ -68,7 +68,7 @@ public class BasePage {
 		Actions actions = new Actions(driver);
 		actions.dragAndDrop(el, dropZone).build().perform();
 		sleep(1000);
-		//TODO: fix the offset here.
+		// TODO: fix the offset here.
 		actions.moveByOffset(725, 268).contextClick().perform();
 		sleep(1000);
 		actions.click();
@@ -118,9 +118,18 @@ public class BasePage {
 		alert.accept();
 	}
 
+	// switch to frame
+	public void switchToFrame(WebElement frame) {
+		driver.switchTo().frame(frame);
+	}
+
+	// back to the main HTML page
+	public void switchOutOfFrame() {
+		driver.switchTo().defaultContent();
+	}
+
 	// returns web elements list of a certain passed wrapper web element according
-	// to a By
-	// object
+	// to a By object
 	public List<WebElement> getElemList(WebElement wrapper, By locator) {
 		sleep(500);
 		return wrapper.findElements(locator);
