@@ -42,27 +42,42 @@ public class ProjectsPage extends BasePage {
 	private WebElement confirmDeleteProjectBtn; // Project deletion button
 	@FindBy(css = "form [type=\"button\"]")
 	private WebElement cancelProjectDeletionBtn; // Project cancel deletion button
+	@FindBy(css = ".e-save-succes")
+	private WebElement noLinkWarningPopUp;
+	@FindBy(css = ".swal-button--cancelCustom")
+	private WebElement closeWarningPopUpBtn;
+
 	@FindBy(css = ".md\\:flex-wrap > div")
 	private List<WebElement> projectsBlocks;
 	@FindBy(css = ".mt-6 a")
 	private List<WebElement> workspacesBlocks;
+	@FindBy(css = "h1 a")
+	private List<WebElement> projectsTitles;
+	@FindBy(css = ".flex-no-wrap a")
+	private List<WebElement> tabs;
 
 	// selectors for each project
-	private By projectTitle = By.cssSelector("h1 a");
-	private By projectDropDownBtns = By.cssSelector(".dropdown-menu button");
+//	private By projectTitle = By.cssSelector("h1 a");
+//	private By projectDropDownBtns = By.cssSelector(".justify-right button svg");
 
 	// Drop down menu buttons names for each project
-	private String deleteProject = "delete project";
-	private String moveToWorkSpace = "move to workspace";
+//	private String deleteProject = "delete project";
+//	private String moveToWorkSpace = "move to workspace";
 
 	// constructor
 	public ProjectsPage(WebDriver driver) {
 		super(driver);
 	}
 
-	@Step("Click Start button")
-	public void clickStart() {
-		click(startBtn);
+	@Step("Start a new project")
+	public void createNewProject() {
+		// in case there were no projects
+		if (isElementDisplayed(startBtn)) {
+			click(startBtn);
+			// in case there was at least 1 project
+		} else if (isElementDisplayed(createProjectBtn)) {
+			click(createProjectBtn);
+		}
 	}
 
 	@Step("Create new workspace {name}")
@@ -81,6 +96,7 @@ public class ProjectsPage extends BasePage {
 				click(renameWorkspaceBtn);
 				fillText(renameField, newName);
 				click(confirmationBtn);
+				break;
 			}
 		}
 	}
@@ -94,6 +110,7 @@ public class ProjectsPage extends BasePage {
 				click(deleteWorkspaceBtn);
 				fillText(deleteWorkspaceBtn, name);
 				click(confirmationBtn);
+				break;
 			}
 		}
 	}
@@ -107,14 +124,40 @@ public class ProjectsPage extends BasePage {
 
 	@Step("Delete project {title} from workspace")
 	public void deleteProject(String title) {
-		click(getProjectDropDownBtn(deleteProject, title));
+		for (WebElement project : projectsBlocks) {
+			if (getText(project).contains(title)) {
+				WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
+				click(dropDownBtn);
+				click(dropDownBtn.findElement(By.cssSelector(".items-center.mb-2 .text-red-600")));
+				break;
+			}
+		}
+//		click(getProjectDropDownBtn(deleteProject, title));
 		click(confirmDeleteProjectBtn);
 	}
 
 	@Step("Cancel project deletion")
 	public void cancelProjectDeletion(String title) {
-		click(getProjectDropDownBtn(deleteProject, title));
+		for (WebElement project : projectsBlocks) {
+			if (getText(project).contains(title)) {
+				WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
+				click(dropDownBtn);
+				click(dropDownBtn.findElement(By.cssSelector(".items-center.mb-2 .text-red-600")));
+				break;
+			}
+		}
+		// click(getProjectDropDownBtn(deleteProject, title));
 		click(cancelProjectDeletionBtn);
+	}
+
+	@Step("Select {tabName} tab")
+	public void selectTab(String tabName) {
+		for (WebElement tab : tabs) {
+			if (getText(tab).equalsIgnoreCase(tabName)) {
+				click(tab);
+				break;
+			}
+		}
 	}
 
 	@Step("Get number of existing workspaces")
@@ -127,11 +170,12 @@ public class ProjectsPage extends BasePage {
 		return projectsBlocks.size();
 	}
 
-	// method that returns the requested button' element from the drop down menu for require
-	// project
-	private WebElement getProjectDropDownBtn(String BtnName, String projectName) {
-		List<WebElement> drpdwnBtns = getElemList(getElementFromListByText(projectsBlocks, projectTitle, projectName),
-				projectDropDownBtns);
-		return getElementFromListByText(drpdwnBtns, null, BtnName);
-	}
+//	// method that returns the requested button' element from the drop down menu for
+//	// require
+//	// project
+//	private WebElement getProjectDropDownBtn(String BtnName, String projectName) {
+//		List<WebElement> drpdwnBtns = getElemList(getElementFromListByText(projectsBlocks, projectTitle, projectName),
+//				projectDropDownBtns);
+//		return getElementFromListByText(drpdwnBtns, null, BtnName);
+//	}
 }

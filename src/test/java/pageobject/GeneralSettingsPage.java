@@ -16,15 +16,18 @@ public class GeneralSettingsPage extends BasePage {
 	private WebElement editProjectBtn;
 	@FindBy(css = "#general-settings button span")
 	private WebElement updateSettingsBtn;
+	@FindBy(css = "#confirm-publish-button")
+	private WebElement publishNowBtn;
 
 	// constructor
 	public GeneralSettingsPage(WebDriver driver) {
 		super(driver);
 	}
 
-	@Step("Click Publish button")
-	public void clickPublish() {
+	@Step("Click Publish button and confirm publishing")
+	public void publishProject() {
 		click(publishBtn);
+		click(publishNowBtn);
 	}
 
 	@Step("Click Update Settings button")

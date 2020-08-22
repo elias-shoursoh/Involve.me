@@ -51,11 +51,11 @@ public class TemplatesPage extends BasePage {
 	private List<WebElement> templatesBlocks;
 
 	// selectors for each template
-	private By chooseBtns = By.cssSelector("a .btn.btn-primary");
-	private By templateTitle = By.cssSelector("div.details-container");
+//	private By chooseBtns = By.cssSelector("a .btn.btn-primary");
+//	private By templateTitle = By.cssSelector("div.details-container");
 
 	// Choose button's name
-	private String choose = "choose";
+//	private String choose = "choose";
 
 	// constructor
 	public TemplatesPage(WebDriver driver) {
@@ -108,10 +108,18 @@ public class TemplatesPage extends BasePage {
 	}
 
 	@Step("Select template {template}")
-	public void chooseTemplate(String template) {
-		WebElement btn = getTemplateChooseBtn(choose, template);
-		moveToElement(btn);
-		click(btn);
+	public void chooseTemplate(String templateName) {
+		for (WebElement template : templatesBlocks) {
+			if (getText(template).contains(templateName)) {
+				WebElement btn = template.findElement(By.cssSelector("a .btn.btn-primary"));
+				moveToElement(btn);
+				click(btn);
+				break;
+			}
+		}
+//		WebElement btn = getTemplateChooseBtn(choose, templateName);
+//		moveToElement(btn);
+//		click(btn);
 	}
 
 	@Step("Get number of displayed templates in page")
@@ -147,9 +155,9 @@ public class TemplatesPage extends BasePage {
 
 	// method that returns the requested Choose button's element for the required
 	// template
-	private WebElement getTemplateChooseBtn(String BtnName, String templateName) {
-		List<WebElement> eBtns = getElemList(getElementFromListByText(templatesBlocks, templateTitle, templateName),
-				chooseBtns);
-		return getElementFromListByText(eBtns, null, BtnName);
-	}
+//	private WebElement getTemplateChooseBtn(String BtnName, String templateName) {
+//		List<WebElement> eBtns = getElemList(getElementFromListByText(templatesBlocks, templateTitle, templateName),
+//				chooseBtns);
+//		return getElementFromListByText(eBtns, null, BtnName);
+//	}
 }

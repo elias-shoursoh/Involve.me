@@ -47,8 +47,16 @@ public class ProjectEditPage extends BasePage {
 	private WebElement outcomePagesTypeBtn;
 	@FindBy(css = ".vcentered.bgfixed")
 	private WebElement dropZone;
-
-	// TODO: finish here with at least one editing of a selected project
+	@FindBy(css = ".has-rating")
+	private WebElement ratingContent;
+	@FindBy(css = "div.c-data-collection-container")
+	private WebElement contactFormContent;
+	@FindBy(css = ".content-item-edit-close .save-close")
+	private WebElement saveAndCloseBtn;
+	@FindBy(css = ".e-save-succes")
+	private WebElement noLinkWarningPopUp;
+	@FindBy(css = ".swal-button--cancelCustom")
+	private WebElement closeWarningPopUpBtn;
 
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
@@ -77,12 +85,15 @@ public class ProjectEditPage extends BasePage {
 		click(startEditingBtn);
 	}
 
+	// TODO: should test the offset and adjust it
 	@Step("Add the element {element} to project")
 	public void addElementToProject(String element) {
 		for (WebElement content : contentList) {
 			if (getText(content).equalsIgnoreCase(element)) {
 				dragAndDrop(content, dropZone);
+				break;
 			}
+			click(saveAndCloseBtn);
 		}
 	}
 
@@ -104,6 +115,16 @@ public class ProjectEditPage extends BasePage {
 		click(confirmDeleteSlideBtn);
 	}
 
+	@Step("Close no page link warning pop up")
+	public void closeNoLinkWarningPopUp() {
+		click(closeWarningPopUpBtn);
+	}
+
+	@Step("Check if no page link warning popup is displayed")
+	public boolean isNoLinkWarningMsgDisplayed() {
+		return isElementDisplayed(noLinkWarningPopUp);
+	}
+
 	@Step("Get project's slides number")
 	public int slidesNumber() {
 		return slidesList.size();
@@ -112,5 +133,17 @@ public class ProjectEditPage extends BasePage {
 	@Step("Get project's name")
 	public String getProjectName() {
 		return getText(projectName);
+	}
+
+	@Step("Check if content {content} is displayed on project")
+	public boolean isContentAdded(String content) {
+		switch (content) {
+		case "rating":
+			return isElementDisplayed(ratingContent);
+		case "contact form":
+			return isElementDisplayed(contactFormContent);
+		default:
+			return false;
+		}
 	}
 }
