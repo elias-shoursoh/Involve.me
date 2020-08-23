@@ -21,6 +21,8 @@ public class LoginPage extends TopMenuBar {
 	private WebElement forgotPasswordLink;
 	@FindBy(css = ".alert")
 	private WebElement invalidCredsMsg;
+	@FindBy(css = ".e-form-heading")
+	private WebElement pageTitle;
 
 	// constructor
 	public LoginPage(WebDriver driver) {
@@ -30,7 +32,7 @@ public class LoginPage extends TopMenuBar {
 	@Step("Login with user: {user} and password: {password}")
 	public void logIn(String user, String password) {
 		fillText(emailField, user);
-		fillText(emailField, password);
+		fillText(passwordField, password);
 		click(loginBtn);
 	}
 
@@ -47,5 +49,10 @@ public class LoginPage extends TopMenuBar {
 	@Step("Get Inavlid credentials error message")
 	public String getInvalidCredsMsg() {
 		return getText(invalidCredsMsg);
+	}
+
+	@Step("Get log in page's title")
+	public String getTitle() {
+		return getText(pageTitle);
 	}
 }
