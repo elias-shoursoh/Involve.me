@@ -1,7 +1,5 @@
 package tests;
 
-import java.sql.Timestamp;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,46 +8,39 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import pageobject.CreateNewAccountPage;
-import pageobject.FirstTimeLogInPage;
 import pageobject.LoginPage;
-import pageobject.ProjectsPage;
-
-//TODO: try to get pass "I am not a robot" issue"
+import utils.Configuration;
 
 public class RegisterationTest extends BaseTest {
 
 	private final String name = "Mathew Wallace";
-	private final String emailPrefix = "eliassh";
-	private final String addressPrefix = "@live.com";
-	private final String pageTitle = "Workspaces";
+	private final String existingEmailMsg = "The email has already been taken.";
+	private final String captchaErrorMsg = "The captcha field is required.";
+	private final String validEmail = "eliassh@live.com";
 
 	@Test(priority = 1, description = "Registeration feature test")
 	@Severity(SeverityLevel.CRITICAL)
-	@Story("When registering with valid credentials and input, a new account should be created")
-	@Description("Creating new account with valid input")
-	public void createNewAccountTest() {
+	@Story("When registering with valid credentials but with an exisitng email address, an error message should appear")
+	@Description("Creating new account with valid input but with an existing email address")
+	public void createNewAccountWithExistingEmailTest() {
 		LoginPage lp = new LoginPage(driver);
 		lp.clickLogin();
 		lp.clickCreateAnAccount();
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccount(name, emailPrefix + getTimeStamp() + addressPrefix);
-		FirstTimeLogInPage ftp = new FirstTimeLogInPage(driver);
-		ftp.manageWelcomePage("quiz", "for fun", "no");
-		ProjectsPage pp = new ProjectsPage(driver);
-		Assert.assertEquals(pp.getTitle(), pageTitle);
+		cp.createNewAccount(name, Configuration.readProperty("username"));
+		Assert.assertTrue((cp.getFailureMsg().contains(existingEmailMsg)));
 	}
 
-	@Test(priority = 2, description = "Log out")
-	@Severity(SeverityLevel.BLOCKER)
-	@Description("Log out from site")
-	public void logout() {
-		ProjectsPage pp = new ProjectsPage(driver);
-		pp.logout();
-	}
-
-	// gets current time stamp, removes spaces,: and -
-	private String getTimeStamp() {
-		return new Timestamp(System.currentTimeMillis()).toString().replaceAll(" ", "").replaceAll("-", "")
-				.replaceAll(":", "");
+	@Test(priority = 2, description = "Registeratrion feature without captcha test")
+	@Severity(SeverityLevel.CRITICAL)
+	@Story("When registering with valid input but do not check the I'm not a robot check box, then an error message should appear")
+	@Description("Creating new account with valid input but without captcha")
+	public void createNewAccountWithouCaptchaTest() {
+		LoginPage lp = new LoginPage(driver);
+		lp.clickLogin();
+		lp.clickCreateAnAccount();
+		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
+		cp.createNewAccount(name, validEmail);
+		Assert.assertTrue((cp.getFailureMsg()).contains(captchaErrorMsg));
 	}
 }

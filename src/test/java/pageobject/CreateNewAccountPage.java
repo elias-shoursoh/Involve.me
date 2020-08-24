@@ -31,6 +31,8 @@ public class CreateNewAccountPage extends TopMenuBar {
 	private WebElement availability;
 	@FindBy(css = ".alert-danger")
 	private WebElement failureMsg;
+	@FindBy(css = "#email-error")
+	private WebElement invalidEmailMsg;
 
 	private final String notAvailabe = "(not available)";
 	Random rand;
@@ -43,8 +45,8 @@ public class CreateNewAccountPage extends TopMenuBar {
 
 	@Step("Creating new account with name: {name} and email address: {email}")
 	public void createNewAccount(String name, String email) {
+		sleep(3000);
 		fillText(nameField, name);
-		sleep(2000);
 		// concatenates "Automation" string to a random number between 0 to 999
 		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
 		clearTextBox(organizationField);
@@ -54,14 +56,8 @@ public class CreateNewAccountPage extends TopMenuBar {
 			fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
 		}
 		fillText(emailField, email);
-		sleep(3000);
 		fillText(passwordField, "Jkljkm1c123");
-		sleep(3000);
-		switchToFrame(notRobotFrame);
-		sleep(2000);
-		click(notRobotCheckBox);
-		sleep(2000);
-		switchOutOfFrame();
+		moveToElement(termsCheckBox);
 		click(termsCheckBox);
 		click(registerBtn);
 	}
@@ -69,6 +65,11 @@ public class CreateNewAccountPage extends TopMenuBar {
 	@Step("Get failure message")
 	public String getFailureMsg() {
 		return getText(failureMsg);
+	}
+
+	@Step("Get invalid email error message")
+	public String getInvalidEmailMsg() {
+		return getText(invalidEmailMsg);
 	}
 
 	// method that checks if an organization was already registered to site
