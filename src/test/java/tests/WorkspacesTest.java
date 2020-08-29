@@ -59,7 +59,19 @@ public class WorkspacesTest extends BaseTest {
 		Assert.assertTrue(after == before - 1);
 	}
 
-	@Test(priority = 5, dependsOnMethods = { "logIn" }, description = "Add project to workspace test")
+	@Test(priority = 5, dependsOnMethods = {
+			"logIn" }, description = "Comparison between the number of projects seen and the number that is shown in workspaces block")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("Number of existing projects in page should be equal to the number shown in workspaces block")
+	@Description("Comparison between the actual number of projects seen and the number shown in workspaces block")
+	public void numberOfExistingPorjectsTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int numberFromProjectsBlock = pp.getProjectsNumber();
+		int numberFromWorkspacesBlock = pp.getProjectsNumberFromWorkspacesBlock("My Workspace");
+		Assert.assertTrue(numberFromProjectsBlock == numberFromWorkspacesBlock);
+	}
+
+	@Test(priority = 6, dependsOnMethods = { "logIn" }, description = "Add project to workspace test")
 	@Severity(SeverityLevel.CRITICAL)
 	@Story("When selecting a new project and add it, then it should be added to workspace")
 	@Description("Selecting and adding a project to workspace")
@@ -79,7 +91,17 @@ public class WorkspacesTest extends BaseTest {
 		Assert.assertTrue(after == before + 1);
 	}
 
-	@Test(priority = 6, dependsOnMethods = {
+	@Test(priority = 7, dependsOnMethods = { "addProjectToWorkspaceTest" }, description = "Search feature test")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When searching for an existing project, at least one project with same name should be in view")
+	@Description("Search for an existing project")
+	public void searchProjectTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		pp.searchProject("for testing");
+		Assert.assertTrue(pp.isProjectFound("for testing"));
+	}
+
+	@Test(priority = 8, dependsOnMethods = {
 			"addProjectToWorkspaceTest" }, description = "Cancelation of project deleting process")
 	@Severity(SeverityLevel.NORMAL)
 	@Story("When choosing cancel delete option, project should not be removed from workspace")
@@ -92,7 +114,7 @@ public class WorkspacesTest extends BaseTest {
 		Assert.assertTrue(before == after);
 	}
 
-	@Test(priority = 7, dependsOnMethods = {
+	@Test(priority = 9, dependsOnMethods = {
 			"addProjectToWorkspaceTest" }, description = "Delete project from workspace test")
 	@Severity(SeverityLevel.CRITICAL)
 	@Story("When selecting a project to delete it, it should be removed from workspace")
@@ -105,7 +127,7 @@ public class WorkspacesTest extends BaseTest {
 		Assert.assertTrue(after == before - 1);
 	}
 
-	@Test(priority = 8, description = "Logout from site")
+	@Test(priority = 10, description = "Logout from site")
 	public void logout() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.logout();

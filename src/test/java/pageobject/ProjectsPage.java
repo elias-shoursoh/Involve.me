@@ -25,7 +25,7 @@ public class ProjectsPage extends TopNavigateBar {
 	@FindBy(css = ".vue-portal-target input")
 	private WebElement renameField;
 	@FindBy(css = "#confirm-create-button")
-	private WebElement confirmationBtn; // Rename and create and delete workspace buttons
+	private WebElement confirmationBtn; // Rename , create, and delete workspace buttons
 	@FindBy(css = "[placeholder=\"Workspace name\"]")
 	private WebElement newWorkspaceNameField;
 	@FindBy(css = ".h-12")
@@ -57,14 +57,6 @@ public class ProjectsPage extends TopNavigateBar {
 	private List<WebElement> projectsTitles;
 	@FindBy(css = ".flex-no-wrap a")
 	private List<WebElement> tabs;
-
-	// selectors for each project
-//	private By projectTitle = By.cssSelector("h1 a");
-//	private By projectDropDownBtns = By.cssSelector(".justify-right button svg");
-
-	// Drop down menu buttons names for each project
-//	private String deleteProject = "delete project";
-//	private String moveToWorkSpace = "move to workspace";
 
 	// constructor
 	public ProjectsPage(WebDriver driver) {
@@ -126,7 +118,7 @@ public class ProjectsPage extends TopNavigateBar {
 	public void searchProject(String name) {
 		click(searchBtn);
 		fillText(searchField, name);
-		submit(searchField);
+		// submit(searchField);
 	}
 
 	@Step("Delete project {title} from workspace")
@@ -141,7 +133,6 @@ public class ProjectsPage extends TopNavigateBar {
 				break;
 			}
 		}
-//		click(getProjectDropDownBtn(deleteProject, title));
 		click(confirmDeleteProjectBtn);
 		sleep(3000);
 	}
@@ -158,10 +149,10 @@ public class ProjectsPage extends TopNavigateBar {
 				break;
 			}
 		}
-		// click(getProjectDropDownBtn(deleteProject, title));
 		click(cancelProjectDeletionBtn);
 	}
 
+	// TODO: change this to clickPreview method
 	@Step("Go to project's analytics page")
 	public void clickAnalytics(String projectName) {
 		List<WebElement> projects = projectsBlocks;
@@ -198,6 +189,20 @@ public class ProjectsPage extends TopNavigateBar {
 		return projects.size();
 	}
 
+	@Step("Get number of existing project from workspaces block")
+	public int getProjectsNumberFromWorkspacesBlock(String workspaceName) {
+		List<WebElement> workspaces = workspacesBlocks;
+		WebElement number = null;
+		for (WebElement workspace : workspaces) {
+			if (getText(workspace).contains(workspaceName)) {
+				// get the element of the number shown next to workspace name
+				number = workspace.findElement(By.cssSelector("span:nth-child(2)"));
+				break;
+			}
+		}
+		return Integer.parseInt(getText(number));
+	}
+
 	// returns the projects page title
 	public String getTitle() {
 		return getText(projectPageTitle);
@@ -214,18 +219,21 @@ public class ProjectsPage extends TopNavigateBar {
 		return false;
 	}
 
-	// clicks on a specific project drop down arrow and returns the element
+	// checks if all projects in view are with the same name (this is used after
+	// search functionality)
+	public boolean isProjectFound(String project) {
+		List<WebElement> projectsNames = projectsTitles;
+		for (WebElement name : projectsNames) {
+			if (!getText(name).equalsIgnoreCase(project)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// clicks on a specific project's drop down arrow and returns the element
 	private void clickDropDownBtn(WebElement project) {
 		WebElement dropDownBtn = project.findElement(By.cssSelector(".justify-right button svg"));
 		click(dropDownBtn);
 	}
-
-//	// method that returns the requested button' element from the drop down menu for
-//	// require
-//	// project
-//	private WebElement getProjectDropDownBtn(String BtnName, String projectName) {
-//		List<WebElement> drpdwnBtns = getElemList(getElementFromListByText(projectsBlocks, projectTitle, projectName),
-//				projectDropDownBtns);
-//		return getElementFromListByText(drpdwnBtns, null, BtnName);
-//	}
 }
