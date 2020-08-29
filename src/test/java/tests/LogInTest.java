@@ -15,7 +15,7 @@ import utils.Excel;
 
 public class LogInTest extends BaseTest {
 
-	private final String title = "Workspaces";
+	private final String title = "My Workspace";
 	private final String invalidLogInMsg = "These credentials do not match our records.";
 	private final String logInPageTitle = "Log in";
 

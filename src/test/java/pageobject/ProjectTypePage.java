@@ -25,6 +25,7 @@ public class ProjectTypePage extends TopNavigateBar {
 		for (WebElement project : projectsBlocks) {
 			if (getText(project).equalsIgnoreCase(projectName)) {
 				click(project);
+				break;
 			}
 		}
 	}

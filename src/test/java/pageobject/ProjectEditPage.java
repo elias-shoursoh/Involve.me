@@ -41,7 +41,7 @@ public class ProjectEditPage extends BasePage {
 	private List<WebElement> deleteSlideBtns;
 	@FindBy(css = ".swal-button--confirm")
 	private WebElement confirmDeleteSlideBtn;
-	@FindBy(css = "for=\"select-default\"")
+	@FindBy(css = "[for=\"select-default\"]")
 	private WebElement thankYouPageTypeBtn;
 	@FindBy(css = "[for=\"select-outcomes\"]")
 	private WebElement outcomePagesTypeBtn;
@@ -79,8 +79,13 @@ public class ProjectEditPage extends BasePage {
 		switch (projectType) {
 		case "thank you page":
 			click(thankYouPageTypeBtn);
+			break;
 		case "outcome pages":
 			click(outcomePagesTypeBtn);
+			break;
+		default:
+			click(thankYouPageTypeBtn);
+			break;
 		}
 		click(startEditingBtn);
 	}

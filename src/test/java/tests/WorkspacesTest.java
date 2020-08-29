@@ -1,0 +1,113 @@
+package tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import pageobject.LoginPage;
+import pageobject.ProjectEditPage;
+import pageobject.ProjectTypePage;
+import pageobject.ProjectsPage;
+import pageobject.TemplatesPage;
+import utils.Configuration;
+
+public class WorkspacesTest extends BaseTest {
+
+	@Test(priority = 1, description = "Log in to site")
+	public void logIn() {
+		LoginPage lp = new LoginPage(driver);
+		lp.clickLogin();
+		lp.logIn(Configuration.readProperty("username"), Configuration.readProperty("password"));
+		ProjectsPage pp = new ProjectsPage(driver);
+		Assert.assertEquals(pp.getTitle(), "My Workspace");
+	}
+
+	@Test(priority = 2, dependsOnMethods = { "logIn" }, description = "Workspaces creation feature test")
+	@Severity(SeverityLevel.BLOCKER)
+	@Story("When creating a new workspace, then a new one should be added to workspaces block")
+	@Description("Creating a new workspace")
+	public void createNewWorkspaceTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int before = pp.getWorkspacesNumber();
+		pp.createWorkSpace("elias");
+		int after = pp.getWorkspacesNumber();
+		Assert.assertTrue(after == before + 1);
+	}
+
+	@Test(priority = 3, dependsOnMethods = { "createNewWorkspaceTest" })
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When renaimg an existing workspace, then the name should be changed")
+	@Description("Renaming an existing workspace")
+	public void renameWorkspaceTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		pp.renameWorkSpace("elias", "elias_test");
+		Assert.assertTrue(pp.isWorkSpaceFound("elias_test"));
+	}
+
+	@Test(priority = 4, dependsOnMethods = { "renameWorkspaceTest" }, description = "Workspaces deletion feature test")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When deleting a workspace, it should be removed from workspaces block")
+	@Description("Deleting an existing workspace")
+	public void deleteWorkspaceTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int before = pp.getWorkspacesNumber();
+		pp.deleteWorkspace("elias_test");
+		int after = pp.getWorkspacesNumber();
+		Assert.assertTrue(after == before - 1);
+	}
+
+	@Test(priority = 5, dependsOnMethods = { "logIn" }, description = "Add project to workspace test")
+	@Severity(SeverityLevel.CRITICAL)
+	@Story("When selecting a new project and add it, then it should be added to workspace")
+	@Description("Selecting and adding a project to workspace")
+	public void addProjectToWorkspaceTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int before = pp.getProjectsNumber();
+		pp.createNewProject();
+		ProjectTypePage ptp = new ProjectTypePage(driver);
+		ptp.selectProject("quiz");
+		TemplatesPage tp = new TemplatesPage(driver);
+		tp.chooseTemplate("Blank");
+		ProjectEditPage pep = new ProjectEditPage(driver);
+		pep.editProjectPrep("for testing", "thank you page");
+		pep.clickSaveAndExit();
+		pp = new ProjectsPage(driver);
+		int after = pp.getProjectsNumber();
+		Assert.assertTrue(after == before + 1);
+	}
+
+	@Test(priority = 6, dependsOnMethods = {
+			"addProjectToWorkspaceTest" }, description = "Cancelation of project deleting process")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When choosing cancel delete option, project should not be removed from workspace")
+	@Description("Cancel project deletion")
+	public void projectDeletionCancelationTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int before = pp.getProjectsNumber();
+		pp.cancelProjectDeletion("for testing");
+		int after = pp.getProjectsNumber();
+		Assert.assertTrue(before == after);
+	}
+
+	@Test(priority = 7, dependsOnMethods = {
+			"addProjectToWorkspaceTest" }, description = "Delete project from workspace test")
+	@Severity(SeverityLevel.CRITICAL)
+	@Story("When selecting a project to delete it, it should be removed from workspace")
+	@Description("Deleting an existing project from workspace")
+	public void deleteProjectFromWorkspace() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		int before = pp.getProjectsNumber();
+		pp.deleteProject("for testing");
+		int after = pp.getProjectsNumber();
+		Assert.assertTrue(after == before - 1);
+	}
+
+	@Test(priority = 8, description = "Logout from site")
+	public void logout() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		pp.logout();
+	}
+}

@@ -109,7 +109,8 @@ public class TemplatesPage extends TopNavigateBar {
 
 	@Step("Select template {template}")
 	public void chooseTemplate(String templateName) {
-		for (WebElement template : templatesBlocks) {
+		List<WebElement> templates = templatesBlocks;
+		for (WebElement template : templates) {
 			if (getText(template).contains(templateName)) {
 				WebElement btn = template.findElement(By.cssSelector("a .btn.btn-primary"));
 				moveToElement(btn);
