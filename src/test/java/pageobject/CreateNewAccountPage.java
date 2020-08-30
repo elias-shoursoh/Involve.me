@@ -33,6 +33,8 @@ public class CreateNewAccountPage extends TopMenuBar {
 	private WebElement failureMsg;
 	@FindBy(css = "#email-error")
 	private WebElement invalidEmailMsg;
+	@FindBy(css = "#register-password-error")
+	private WebElement invalidPasswordMsg;
 
 	private final String notAvailabe = "(not available)";
 	Random rand;
@@ -45,21 +47,28 @@ public class CreateNewAccountPage extends TopMenuBar {
 
 	@Step("Creating new account with name: {name} and email address: {email}")
 	public void createNewAccount(String name, String email) {
-		sleep(3000);
-		fillText(nameField, name);
-		// concatenates "Automation" string to a random number between 0 to 999
-		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
-		clearTextBox(organizationField);
-		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
-		// if this organization exists, then enter another organization
-		while (isNotAvailable()) {
-			fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
-		}
+		fillNameAndOrganization(name);
 		fillText(emailField, email);
 		fillText(passwordField, "Jkljkm1c123");
 		moveToElement(termsCheckBox);
 		click(termsCheckBox);
 		click(registerBtn);
+	}
+
+	@Step("Creating a new account with invalid email {email}")
+	public void createNewAccountWithInvalidEmail(String name, String email) {
+		fillNameAndOrganization(name);
+		fillText(emailField, email);
+		// stops here because the error message should appear already
+		submit(emailField);
+	}
+
+	@Step("Creating a new account with invalid password {password}")
+	public void createNewAccountWithInvalidPassword(String name, String email, String password) {
+		fillNameAndOrganization(name);
+		fillText(emailField, email);
+		fillText(passwordField, password);
+		submit(passwordField);
 	}
 
 	@Step("Get failure message")
@@ -72,8 +81,27 @@ public class CreateNewAccountPage extends TopMenuBar {
 		return getText(invalidEmailMsg);
 	}
 
+	@Step("Get invalid password error message")
+	public String getInvalidPasswordMsg() {
+		return getText(invalidPasswordMsg);
+	}
+
 	// method that checks if an organization was already registered to site
 	private boolean isNotAvailable() {
 		return (getText(availability).equals(notAvailabe));
+	}
+
+	// method that fills the name and organization in new account form
+	private void fillNameAndOrganization(String name) {
+		// sleep(3000);
+		fillText(nameField, name);
+		// concatenates "Automation" string to a random number between 0 to 999
+		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
+		clearTextBox(organizationField);
+		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
+		// if this organization exists, then enter another organization
+		while (isNotAvailable()) {
+			fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
+		}
 	}
 }

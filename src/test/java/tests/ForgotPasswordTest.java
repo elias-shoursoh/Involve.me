@@ -7,6 +7,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import pageobject.AboutPage;
 import pageobject.ForgotPasswordPage;
 import pageobject.LoginPage;
 import utils.Configuration;
@@ -21,8 +22,9 @@ public class ForgotPasswordTest extends BaseTest {
 	@Story("When sending a password reset link to a valid email address, a success message should appear")
 	@Description("Sending password reset link to a valid email address")
 	public void validEmailTest() {
+		AboutPage ap = new AboutPage(driver);
+		ap.clickLoginLink();
 		LoginPage lp = new LoginPage(driver);
-		lp.clickLogin();
 		lp.clickForgotPassword();
 		ForgotPasswordPage fp = new ForgotPasswordPage(driver);
 		fp.sendPasswordResetLink(Configuration.readProperty("username"));
@@ -39,5 +41,4 @@ public class ForgotPasswordTest extends BaseTest {
 		fp.sendPasswordResetLink("something@gmail.com");
 		Assert.assertEquals(fp.getInvalidEmailAddMsg(), failMsg);
 	}
-
 }

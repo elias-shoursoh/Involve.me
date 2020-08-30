@@ -9,9 +9,9 @@ import io.qameta.allure.Step;
 /*Top menu bar POM*/
 public class TopMenuBar extends BasePage {
 
-	@FindBy(css = ".login")
+	@FindBy(css = "[href=\"https://app.involve.me/login\"]")
 	private WebElement loginLink;
-	@FindBy(css = ".register")
+	@FindBy(css = "#frontend-navbar-collapse [href=\"https://app.involve.me/register\"]")
 	private WebElement registerLink;
 
 	// constructor

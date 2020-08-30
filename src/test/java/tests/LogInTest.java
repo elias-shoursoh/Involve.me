@@ -8,10 +8,12 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import pageobject.AboutPage;
 import pageobject.LoginPage;
 import pageobject.ProjectsPage;
 import utils.Configuration;
 import utils.Excel;
+
 
 public class LogInTest extends BaseTest {
 
@@ -24,8 +26,9 @@ public class LogInTest extends BaseTest {
 	@Story("When logging with a valid username and password project page should appear")
 	@Description("Log in with a valid username and a valid password")
 	public void validLogInTest() {
+		AboutPage ap = new AboutPage(driver);
+		ap.clickLoginLink();
 		LoginPage lp = new LoginPage(driver);
-		lp.clickLogin();
 		lp.logIn(Configuration.readProperty("username"), Configuration.readProperty("password"));
 		ProjectsPage pp = new ProjectsPage(driver);
 		Assert.assertEquals(pp.getTitle(), title);
@@ -55,7 +58,7 @@ public class LogInTest extends BaseTest {
 
 	@DataProvider
 	public Object[][] getDataFromExcel() {
-		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToExcel");
+		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToLogInExcel");
 		Object[][] table = Excel.getTableArray(excelPath, "Credentials");
 		return table;
 	}

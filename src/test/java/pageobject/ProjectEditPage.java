@@ -104,7 +104,8 @@ public class ProjectEditPage extends BasePage {
 
 	public void clickOneBeforeLastSlide() {
 		// moving the slide that is one before the last
-		click(slidesList.get(slidesList.size() - 2));
+		List<WebElement> slides = slidesList;
+		click(slides.get(slides.size() - 2));
 	}
 
 	@Step("Add new slide to project")
@@ -132,7 +133,8 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Get project's slides number")
 	public int slidesNumber() {
-		return slidesList.size();
+		List<WebElement> slides = slidesList;
+		return slides.size();
 	}
 
 	@Step("Get project's name")

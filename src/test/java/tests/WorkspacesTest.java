@@ -7,6 +7,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import pageobject.AboutPage;
 import pageobject.LoginPage;
 import pageobject.ProjectEditPage;
 import pageobject.ProjectTypePage;
@@ -16,10 +17,21 @@ import utils.Configuration;
 
 public class WorkspacesTest extends BaseTest {
 
+	private String projectName = "for testing";
+	private String finalSlideType = "Thank you page";
+	private String loginPageTitle = "Log in";
+	private String projectType = "quiz";
+	private String templateType = "Blank";
+	private String newWorkspaceName = "elias";
+	private String newName = "elias_test";
+	private String currentWorkspace = "My Workspace";
+	private String noProjectFoundMsg = "No project matches the criteria";
+
 	@Test(priority = 1, description = "Log in to site")
 	public void logIn() {
+		AboutPage ap = new AboutPage(driver);
+		ap.clickLoginLink();
 		LoginPage lp = new LoginPage(driver);
-		lp.clickLogin();
 		lp.logIn(Configuration.readProperty("username"), Configuration.readProperty("password"));
 		ProjectsPage pp = new ProjectsPage(driver);
 		Assert.assertEquals(pp.getTitle(), "My Workspace");
@@ -32,7 +44,7 @@ public class WorkspacesTest extends BaseTest {
 	public void createNewWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getWorkspacesNumber();
-		pp.createWorkSpace("elias");
+		pp.createWorkSpace(newWorkspaceName);
 		int after = pp.getWorkspacesNumber();
 		Assert.assertTrue(after == before + 1);
 	}
@@ -43,8 +55,8 @@ public class WorkspacesTest extends BaseTest {
 	@Description("Renaming an existing workspace")
 	public void renameWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
-		pp.renameWorkSpace("elias", "elias_test");
-		Assert.assertTrue(pp.isWorkSpaceFound("elias_test"));
+		pp.renameWorkSpace(newWorkspaceName, newName);
+		Assert.assertTrue(pp.isWorkSpaceFound(newName));
 	}
 
 	@Test(priority = 4, dependsOnMethods = { "renameWorkspaceTest" }, description = "Workspaces deletion feature test")
@@ -67,7 +79,7 @@ public class WorkspacesTest extends BaseTest {
 	public void numberOfExistingPorjectsTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int numberFromProjectsBlock = pp.getProjectsNumber();
-		int numberFromWorkspacesBlock = pp.getProjectsNumberFromWorkspacesBlock("My Workspace");
+		int numberFromWorkspacesBlock = pp.getProjectsNumberFromWorkspacesBlock(currentWorkspace);
 		Assert.assertTrue(numberFromProjectsBlock == numberFromWorkspacesBlock);
 	}
 
@@ -80,11 +92,11 @@ public class WorkspacesTest extends BaseTest {
 		int before = pp.getProjectsNumber();
 		pp.createNewProject();
 		ProjectTypePage ptp = new ProjectTypePage(driver);
-		ptp.selectProject("quiz");
+		ptp.selectProject(projectType);
 		TemplatesPage tp = new TemplatesPage(driver);
-		tp.chooseTemplate("Blank");
+		tp.chooseTemplate(templateType);
 		ProjectEditPage pep = new ProjectEditPage(driver);
-		pep.editProjectPrep("for testing", "thank you page");
+		pep.editProjectPrep(projectName, finalSlideType);
 		pep.clickSaveAndExit();
 		pp = new ProjectsPage(driver);
 		int after = pp.getProjectsNumber();
@@ -97,11 +109,23 @@ public class WorkspacesTest extends BaseTest {
 	@Description("Search for an existing project")
 	public void searchProjectTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
-		pp.searchProject("for testing");
-		Assert.assertTrue(pp.isProjectFound("for testing"));
+		pp.searchProject(projectName);
+		Assert.assertTrue(pp.isProjectFoundAfterSearch(projectName));
+		pp.clickSearchBtn();
 	}
 
-	@Test(priority = 8, dependsOnMethods = {
+	@Test(priority = 8, dependsOnMethods = { "logIn" }, description = "Search feature test")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When searching for a non existing project, a proper message should appear")
+	@Description("Search for a non existing project")
+	public void searchForNonExistingProjectTest() {
+		ProjectsPage pp = new ProjectsPage(driver);
+		pp.searchProject("Some project");
+		Assert.assertEquals(pp.getNoProjectFoundMsg(), noProjectFoundMsg);
+		pp.clickSearchBtn();
+	}
+
+	@Test(priority = 9, dependsOnMethods = {
 			"addProjectToWorkspaceTest" }, description = "Cancelation of project deleting process")
 	@Severity(SeverityLevel.NORMAL)
 	@Story("When choosing cancel delete option, project should not be removed from workspace")
@@ -109,12 +133,12 @@ public class WorkspacesTest extends BaseTest {
 	public void projectDeletionCancelationTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
-		pp.cancelProjectDeletion("for testing");
+		pp.cancelProjectDeletion(projectName);
 		int after = pp.getProjectsNumber();
 		Assert.assertTrue(before == after);
 	}
 
-	@Test(priority = 9, dependsOnMethods = {
+	@Test(priority = 10, dependsOnMethods = {
 			"addProjectToWorkspaceTest" }, description = "Delete project from workspace test")
 	@Severity(SeverityLevel.CRITICAL)
 	@Story("When selecting a project to delete it, it should be removed from workspace")
@@ -122,14 +146,16 @@ public class WorkspacesTest extends BaseTest {
 	public void deleteProjectFromWorkspace() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
-		pp.deleteProject("for testing");
+		pp.deleteProject(projectName);
 		int after = pp.getProjectsNumber();
 		Assert.assertTrue(after == before - 1);
 	}
 
-	@Test(priority = 10, description = "Logout from site")
+	@Test(priority = 11, dependsOnMethods = { "logIn" }, description = "Logout from site")
 	public void logout() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.logout();
+		LoginPage lp = new LoginPage(driver);
+		Assert.assertEquals(lp.getTitle(), loginPageTitle);
 	}
 }

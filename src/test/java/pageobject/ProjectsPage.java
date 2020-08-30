@@ -48,6 +48,8 @@ public class ProjectsPage extends TopNavigateBar {
 	private WebElement closeWarningPopUpBtn;
 	@FindBy(css = "#app h1.leading-tight.truncate")
 	private WebElement projectPageTitle;
+	@FindBy(css = "#app h1.block")
+	private WebElement noProjectFoundMsg;
 
 	@FindBy(css = "#app .max-w-full div .mt-4 > .mt-8 > div")
 	private List<WebElement> projectsBlocks;
@@ -61,6 +63,10 @@ public class ProjectsPage extends TopNavigateBar {
 	// constructor
 	public ProjectsPage(WebDriver driver) {
 		super(driver);
+	}
+
+	public void clickSearchBtn() {
+		click(searchBtn);
 	}
 
 	@Step("Start a new project")
@@ -116,9 +122,9 @@ public class ProjectsPage extends TopNavigateBar {
 
 	@Step("Search for project {name}")
 	public void searchProject(String name) {
-		click(searchBtn);
+		sleep(1000);
+		clickSearchBtn();
 		fillText(searchField, name);
-		// submit(searchField);
 	}
 
 	@Step("Delete project {title} from workspace")
@@ -152,8 +158,7 @@ public class ProjectsPage extends TopNavigateBar {
 		click(cancelProjectDeletionBtn);
 	}
 
-	// TODO: change this to clickPreview method
-	@Step("Go to project's analytics page")
+	@Step("Go to project's preview page")
 	public void clickAnalytics(String projectName) {
 		List<WebElement> projects = projectsBlocks;
 		for (WebElement project : projects) {
@@ -161,7 +166,7 @@ public class ProjectsPage extends TopNavigateBar {
 				// getting drop down arrow element after clicking it
 				clickDropDownBtn(project);
 				// clicking on Analytics button
-				click(project.findElement(By.cssSelector(".justify-right li:nth-child(4) a")));
+				click(project.findElement(By.cssSelector(".justify-right li:nth-child(2) a")));
 				break;
 			}
 		}
@@ -208,6 +213,11 @@ public class ProjectsPage extends TopNavigateBar {
 		return getText(projectPageTitle);
 	}
 
+	// returns the no project found message after search
+	public String getNoProjectFoundMsg() {
+		return getText(noProjectFoundMsg);
+	}
+
 	// checks if a specific workspace is in workspaces block
 	public boolean isWorkSpaceFound(String workspaceName) {
 		List<WebElement> workspaces = workspacesBlocks;
@@ -221,7 +231,7 @@ public class ProjectsPage extends TopNavigateBar {
 
 	// checks if all projects in view are with the same name (this is used after
 	// search functionality)
-	public boolean isProjectFound(String project) {
+	public boolean isProjectFoundAfterSearch(String project) {
 		List<WebElement> projectsNames = projectsTitles;
 		for (WebElement name : projectsNames) {
 			if (!getText(name).equalsIgnoreCase(project)) {
