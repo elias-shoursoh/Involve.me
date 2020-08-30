@@ -31,14 +31,6 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = ".e-page-item.current .add-page-container button")
 	private WebElement addNewSlideBtn; // Add new slide button's locator is true only if the current slide is the one
 										// before the last
-	@FindBy(css = ".e-pages-container.fitsNavigation .e-page-management")
-	private List<WebElement> pages;
-	@FindBy(css = "#tab1contentitems p")
-	private List<WebElement> contentList;
-	@FindBy(css = ".e-pages-container .e-page-management")
-	private List<WebElement> slidesList;
-	@FindBy(css = "[title=\"Delete page\"]")
-	private List<WebElement> deleteSlideBtns;
 	@FindBy(css = ".swal-button--confirm")
 	private WebElement confirmDeleteSlideBtn;
 	@FindBy(css = "[for=\"select-default\"]")
@@ -57,6 +49,19 @@ public class ProjectEditPage extends BasePage {
 	private WebElement noLinkWarningPopUp;
 	@FindBy(css = ".swal-button--cancelCustom")
 	private WebElement closeWarningPopUpBtn;
+	@FindBy(css = "label#project-name-error")
+	private WebElement projectNameErrorMsg; // in New project pop up
+	@FindBy(css = ".new-project-modal")
+	private WebElement newProjectPopUp;
+
+	@FindBy(css = ".e-pages-container.fitsNavigation .e-page-management")
+	private List<WebElement> pages;
+	@FindBy(css = "#tab1contentitems p")
+	private List<WebElement> contentList;
+	@FindBy(css = ".e-pages-container .e-page-management")
+	private List<WebElement> slidesList;
+	@FindBy(css = "[title=\"Delete page\"]")
+	private List<WebElement> deleteSlideBtns;
 
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
@@ -88,6 +93,12 @@ public class ProjectEditPage extends BasePage {
 			break;
 		}
 		click(startEditingBtn);
+	}
+
+	@Step("Open new project with invalid name")
+	public void editInvalidProjectName(String projectName) {
+		fillText(projectNameField, projectName);
+		submit(projectNameField);
 	}
 
 	// TODO: should test the offset and adjust it
@@ -126,20 +137,15 @@ public class ProjectEditPage extends BasePage {
 		click(closeWarningPopUpBtn);
 	}
 
-	@Step("Check if no page link warning popup is displayed")
-	public boolean isNoLinkWarningMsgDisplayed() {
-		return isElementDisplayed(noLinkWarningPopUp);
-	}
-
 	@Step("Get project's slides number")
-	public int slidesNumber() {
+	public int getSlidesNumber() {
 		List<WebElement> slides = slidesList;
 		return slides.size();
 	}
 
-	@Step("Get project's name")
-	public String getProjectName() {
-		return getText(projectName);
+	@Step("Check if no page link warning popup is displayed")
+	public boolean isNoLinkWarningMsgDisplayed() {
+		return isElementDisplayed(noLinkWarningPopUp);
 	}
 
 	@Step("Check if content {content} is displayed on project")
@@ -152,5 +158,20 @@ public class ProjectEditPage extends BasePage {
 		default:
 			return false;
 		}
+	}
+
+	@Step("Check is new project pop up is displayed")
+	public boolean isNewProjectPopUpDisplayed() {
+		return isElementDisplayed(newProjectPopUp);
+	}
+
+	@Step("Get project's name")
+	public String getProjectName() {
+		return getText(projectName);
+	}
+
+	// returns the error message that is related to a new project's name
+	public String getProjectNameErrorMsg() {
+		return getText(projectNameErrorMsg);
 	}
 }
