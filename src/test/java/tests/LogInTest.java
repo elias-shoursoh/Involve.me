@@ -14,7 +14,7 @@ import pageobject.ProjectsPage;
 import utils.Configuration;
 import utils.Excel;
 
-
+@Severity(SeverityLevel.BLOCKER)
 public class LogInTest extends BaseTest {
 
 	private final String title = "My Workspace";
@@ -22,7 +22,6 @@ public class LogInTest extends BaseTest {
 	private final String logInPageTitle = "Log in";
 
 	@Test(priority = 1, description = "Valid log in")
-	@Severity(SeverityLevel.BLOCKER)
 	@Story("When logging with a valid username and password project page should appear")
 	@Description("Log in with a valid username and a valid password")
 	public void validLogInTest() {
@@ -35,7 +34,6 @@ public class LogInTest extends BaseTest {
 	}
 
 	@Test(priority = 2, description = "Log out from site")
-	@Severity(SeverityLevel.BLOCKER)
 	@Story("When clicking on account name and then log out, account should be logged out")
 	@Description("Logging out of account")
 	public void logoutTest() {

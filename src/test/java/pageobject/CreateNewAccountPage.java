@@ -2,6 +2,7 @@ package pageobject;
 
 import java.util.Random;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +11,7 @@ import io.qameta.allure.Step;
 
 /*Create new account POM*/
 public class CreateNewAccountPage extends TopMenuBar {
+	JavascriptExecutor executor;
 
 	@FindBy(css = "#user-name")
 	private WebElement nameField;
@@ -23,7 +25,7 @@ public class CreateNewAccountPage extends TopMenuBar {
 	private WebElement notRobotCheckBox;
 	@FindBy(css = "iframe[role=\"presentation\"]")
 	private WebElement notRobotFrame;
-	@FindBy(css = "#terms")
+	@FindBy(css = "input[type='checkbox']")
 	private WebElement termsCheckBox;
 	@FindBy(css = ".btn-lg")
 	private WebElement registerBtn;
@@ -50,8 +52,8 @@ public class CreateNewAccountPage extends TopMenuBar {
 		fillNameAndOrganization(name);
 		fillText(emailField, email);
 		fillText(passwordField, "Jkljkm1c123");
-		moveToElement(termsCheckBox);
-		click(termsCheckBox);
+		executor = (JavascriptExecutor)driver;
+		executor.executeScript("arguments[0].click();", termsCheckBox);
 		click(registerBtn);
 	}
 

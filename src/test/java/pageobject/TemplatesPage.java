@@ -109,6 +109,7 @@ public class TemplatesPage extends TopNavigateBar {
 
 	@Step("Select template {template}")
 	public void chooseTemplate(String templateName) {
+		sleep(1000);
 		List<WebElement> templates = templatesBlocks;
 		for (WebElement template : templates) {
 			if (getText(template).contains(templateName)) {

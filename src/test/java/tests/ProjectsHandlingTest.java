@@ -8,6 +8,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import pageobject.AboutPage;
+import pageobject.GeneralSettingsPage;
 import pageobject.LoginPage;
 import pageobject.ProjectEditPage;
 import pageobject.ProjectTypePage;
@@ -15,21 +16,22 @@ import pageobject.ProjectsPage;
 import pageobject.TemplatesPage;
 import utils.Configuration;
 
-public class ProjectEdittingTest extends BaseTest {
+public class ProjectsHandlingTest extends BaseTest {
 
 	private final String requiredFieldMsg = "This field is required.";
 	private final String shortNameMsg = "Please enter at least 3 characters.";
 
-	@Test(priority = 1, description = "Log in to account")
+	@Test(priority = 1, alwaysRun = true, description = "Log in to account")
 	public void logIn() {
 		AboutPage ap = new AboutPage(driver);
 		ap.clickLoginLink();
 		LoginPage lp = new LoginPage(driver);
 		lp.logIn(Configuration.readProperty("username"), Configuration.readProperty("password"));
-		Assert.assertEquals(lp.getTitle(), "My Workspace");
+		ProjectsPage pp = new ProjectsPage(driver);
+		Assert.assertEquals(pp.getTitle(), "My Workspace");
 	}
 
-	@Test(priority = 2, dependsOnMethods = { "LogIn" }, description = "Selecting a new project to edit test")
+	@Test(priority = 2, dependsOnMethods = { "logIn" }, description = "Selecting a new project to edit test")
 	@Severity(SeverityLevel.BLOCKER)
 	@Story("When selecting a project, a pop up window appears for new project's details")
 	@Description("Selecting a new project")
@@ -37,7 +39,7 @@ public class ProjectEdittingTest extends BaseTest {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.createNewProject();
 		ProjectTypePage ptp = new ProjectTypePage(driver);
-		ptp.selectProject("Survey");
+		ptp.selectProject("survey");
 		TemplatesPage tp = new TemplatesPage(driver);
 		tp.chooseTemplate("Blank");
 		ProjectEditPage pep = new ProjectEditPage(driver);
@@ -78,7 +80,7 @@ public class ProjectEdittingTest extends BaseTest {
 		Assert.assertTrue(after == before + 1);
 	}
 
-	@Test(priority = 6, dependsOnMethods = { "prepareProjectTest" }, description = "Deleting an existing slide test")
+	@Test(priority = 6, dependsOnMethods = { "addNewSlideTest" }, description = "Deleting an existing slide test")
 	@Severity(SeverityLevel.NORMAL)
 	@Story("When deleting an existing slide from project, slide should be removed")
 	@Description("Deleting an existing slide from project")
@@ -89,10 +91,38 @@ public class ProjectEdittingTest extends BaseTest {
 		int after = pep.getSlidesNumber();
 		Assert.assertTrue(after == before - 1);
 	}
+//TODO: need to fix this
+	@Test(priority = 7, dependsOnMethods = { "deleteSlideTest" }, description = "Edit project name feature test")
+	@Severity(SeverityLevel.NORMAL)
+	@Story("When Editting project's name from Settings page, project's name should be changed accordingly")
+	@Description("Edit project's name from settings page")
+	public void editProjectNameFromSettingsTest() {
+		ProjectEditPage pep = new ProjectEditPage(driver);
+		pep.clickSettings();
+		GeneralSettingsPage gp = new GeneralSettingsPage(driver);
+		gp.editProjectName("for another testing");
+		gp.clickEditProject();
+		pep = new ProjectEditPage(driver);
+		Assert.assertEquals(pep.getProjectName(), "FOR ANOTHER TESTING");
 
-	@Test(priority = 7, description = "Log out of account")
+	}
+// TODO: need to fix this
+	@Test(priority = 8, dependsOnMethods = { "deleteSlideTest" }, description = "Add rating element to project test")
+	@Severity(SeverityLevel.BLOCKER)
+	@Story("When dragging rating element to project, it should be added to it")
+	@Description("Adding rating element to project")
+	public void addRatingElementToProjectTest() {
+		ProjectEditPage pep = new ProjectEditPage(driver);
+		pep.addElementToProject("rating");
+		Assert.assertTrue(pep.isContentAdded("rating"));
+	}
+
+	@Test(priority = 9, alwaysRun = true, description = "Log out of account")
 	public void logout() {
+		ProjectEditPage pep = new ProjectEditPage(driver);
+		pep.clickSaveAndExit();
 		ProjectsPage pp = new ProjectsPage(driver);
+		pp.deleteProject("for another test");
 		pp.logout();
 		LoginPage lp = new LoginPage(driver);
 		Assert.assertEquals(lp.getTitle(), "Log in");

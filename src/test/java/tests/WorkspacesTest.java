@@ -15,6 +15,7 @@ import pageobject.ProjectsPage;
 import pageobject.TemplatesPage;
 import utils.Configuration;
 
+@Severity(SeverityLevel.NORMAL)
 public class WorkspacesTest extends BaseTest {
 
 	private String projectName = "for testing";
@@ -22,12 +23,12 @@ public class WorkspacesTest extends BaseTest {
 	private String loginPageTitle = "Log in";
 	private String projectType = "quiz";
 	private String templateType = "Blank";
-	private String newWorkspaceName = "elias";
+	private String workspaceName = "elias";
 	private String newName = "elias_test";
 	private String currentWorkspace = "My Workspace";
 	private String noProjectFoundMsg = "No project matches the criteria";
 
-	@Test(priority = 1, description = "Log in to site")
+	@Test(priority = 1, alwaysRun = true, description = "Log in to site")
 	public void logIn() {
 		AboutPage ap = new AboutPage(driver);
 		ap.clickLoginLink();
@@ -44,36 +45,33 @@ public class WorkspacesTest extends BaseTest {
 	public void createNewWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getWorkspacesNumber();
-		pp.createWorkSpace(newWorkspaceName);
+		pp.createWorkSpace(workspaceName);
 		int after = pp.getWorkspacesNumber();
 		Assert.assertTrue(after == before + 1);
 	}
 
 	@Test(priority = 3, dependsOnMethods = { "createNewWorkspaceTest" })
-	@Severity(SeverityLevel.NORMAL)
 	@Story("When renaimg an existing workspace, then the name should be changed")
 	@Description("Renaming an existing workspace")
 	public void renameWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
-		pp.renameWorkSpace(newWorkspaceName, newName);
+		pp.renameWorkSpace(workspaceName, newName);
 		Assert.assertTrue(pp.isWorkSpaceFound(newName));
 	}
 
 	@Test(priority = 4, dependsOnMethods = { "renameWorkspaceTest" }, description = "Workspaces deletion feature test")
-	@Severity(SeverityLevel.NORMAL)
 	@Story("When deleting a workspace, it should be removed from workspaces block")
 	@Description("Deleting an existing workspace")
 	public void deleteWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getWorkspacesNumber();
-		pp.deleteWorkspace("elias_test");
+		pp.deleteWorkspace(newName);
 		int after = pp.getWorkspacesNumber();
 		Assert.assertTrue(after == before - 1);
 	}
 
 	@Test(priority = 5, dependsOnMethods = {
 			"logIn" }, description = "Comparison between the number of projects seen and the number that is shown in workspaces block")
-	@Severity(SeverityLevel.NORMAL)
 	@Story("Number of existing projects in page should be equal to the number shown in workspaces block")
 	@Description("Comparison between the actual number of projects seen and the number shown in workspaces block")
 	public void numberOfExistingPorjectsTest() {
@@ -104,7 +102,6 @@ public class WorkspacesTest extends BaseTest {
 	}
 
 	@Test(priority = 7, dependsOnMethods = { "addProjectToWorkspaceTest" }, description = "Search feature test")
-	@Severity(SeverityLevel.NORMAL)
 	@Story("When searching for an existing project, at least one project with same name should be in view")
 	@Description("Search for an existing project")
 	public void searchProjectTest() {
@@ -115,7 +112,6 @@ public class WorkspacesTest extends BaseTest {
 	}
 
 	@Test(priority = 8, dependsOnMethods = { "logIn" }, description = "Search feature test")
-	@Severity(SeverityLevel.NORMAL)
 	@Story("When searching for a non existing project, a proper message should appear")
 	@Description("Search for a non existing project")
 	public void searchForNonExistingProjectTest() {
@@ -127,7 +123,6 @@ public class WorkspacesTest extends BaseTest {
 
 	@Test(priority = 9, dependsOnMethods = {
 			"addProjectToWorkspaceTest" }, description = "Cancelation of project deleting process")
-	@Severity(SeverityLevel.NORMAL)
 	@Story("When choosing cancel delete option, project should not be removed from workspace")
 	@Description("Cancel project deletion")
 	public void projectDeletionCancelationTest() {
@@ -151,7 +146,7 @@ public class WorkspacesTest extends BaseTest {
 		Assert.assertTrue(after == before - 1);
 	}
 
-	@Test(priority = 11, dependsOnMethods = { "logIn" }, description = "Logout from site")
+	@Test(priority = 11, alwaysRun = true, description = "Logout from site")
 	public void logout() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.logout();

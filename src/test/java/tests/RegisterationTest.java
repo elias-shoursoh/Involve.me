@@ -13,6 +13,7 @@ import pageobject.CreateNewAccountPage;
 import utils.Configuration;
 import utils.Excel;
 
+@Severity(SeverityLevel.CRITICAL)
 public class RegisterationTest extends BaseTest {
 
 	private final String name = "Mathew Wallace";
@@ -27,7 +28,6 @@ public class RegisterationTest extends BaseTest {
 	private final String shortPass = "jkl";
 
 	@Test(priority = 1, description = "Registeration feature test", enabled = false)
-	@Severity(SeverityLevel.CRITICAL)
 	@Story("When registering with valid credentials but with an exisitng email address, an error message should appear")
 	@Description("Creating new account with valid input but with an existing email address")
 	public void createNewAccountWithExistingEmailTest() {
@@ -38,8 +38,7 @@ public class RegisterationTest extends BaseTest {
 		Assert.assertTrue((cp.getFailureMsg().contains(existingEmailMsg)));
 	}
 
-	@Test(priority = 2, description = "Registeratrion feature without captcha test", enabled = false)
-	@Severity(SeverityLevel.CRITICAL)
+	@Test(priority = 2, description = "Registeratrion feature without captcha test")
 	@Story("When registering with valid input but do not check the I'm not a robot check box, then an error message should appear")
 	@Description("Creating new account with valid input but without captcha")
 	public void createNewAccountWithouCaptchaTest() {
@@ -56,7 +55,6 @@ public class RegisterationTest extends BaseTest {
 	}
 
 	@Test(priority = 3, description = "Registeration feature with invalid email test")
-	@Severity(SeverityLevel.CRITICAL)
 	@Story("When registering with an invalid email, an error message should appear")
 	@Description("Creating new account with invalid email")
 	public void createNewAccountWithInvalidEmailTest() {
@@ -109,7 +107,6 @@ public class RegisterationTest extends BaseTest {
 	}
 
 	@Test(priority = 6, description = "Registeration feature with empty email field test")
-	@Severity(SeverityLevel.CRITICAL)
 	@Story("When registering with empty email field, a required field message should appear")
 	@Description("Creating new account with empty email")
 	public void createNewAccountWithEmptyEmailTest() {
@@ -126,7 +123,6 @@ public class RegisterationTest extends BaseTest {
 	}
 
 	@Test(priority = 7, description = "Registeration feature with empty password field test")
-	@Severity(SeverityLevel.CRITICAL)
 	@Story("When registering with empty password field, a required field message should appear")
 	@Description("Creating new account with empty password")
 	public void createNewAccountWithEmptyPasswordTest() {

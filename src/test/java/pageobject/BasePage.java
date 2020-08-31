@@ -32,9 +32,12 @@ public class BasePage {
 
 	// click operation
 	public void click(WebElement el) {
-		wait.until(ExpectedConditions.elementToBeClickable(el));
-		highlightElement(el, "green");
-		el.click();
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(el));
+		} finally {
+			highlightElement(el, "green");
+			el.click();
+		}
 	}
 
 	// send keys operation
@@ -68,10 +71,6 @@ public class BasePage {
 		Actions actions = new Actions(driver);
 		actions.dragAndDrop(el, dropZone).build().perform();
 		sleep(1000);
-		// TODO: fix the offset here.
-		actions.moveByOffset(725, 268).contextClick().perform();
-		sleep(1000);
-		actions.click();
 	}
 
 	// get text operation
