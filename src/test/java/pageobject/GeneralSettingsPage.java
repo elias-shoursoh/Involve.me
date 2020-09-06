@@ -38,7 +38,6 @@ public class GeneralSettingsPage extends TopNavigateBar {
 	@Step("click Edit Project button")
 	public void clickEditProject() {
 		click(editProjectBtn);
-		sleep(2000);
 	}
 
 	@Step("Editing project's name to {name} via General Setting page")

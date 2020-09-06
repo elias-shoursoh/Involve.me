@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
@@ -38,6 +39,8 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "[for=\"select-outcomes\"]")
 	private WebElement outcomePagesTypeBtn;
 	@FindBy(css = ".vcentered.bgfixed")
+	// @FindBy(css = "div.drag-drop-wrapper")
+	// @FindBy(css = ".empty-canvas-info.center-center")
 	private WebElement dropZone;
 	@FindBy(css = ".has-rating")
 	private WebElement ratingContent;
@@ -108,7 +111,6 @@ public class ProjectEditPage extends BasePage {
 		}
 	}
 
-	// TODO: should test the offset and adjust it
 	@Step("Add the element {element} to project")
 	public void addElementToProject(String element) {
 		for (WebElement content : contentList) {
@@ -116,8 +118,8 @@ public class ProjectEditPage extends BasePage {
 				dragAndDrop(content, dropZone);
 				break;
 			}
-			click(saveAndCloseBtn);
 		}
+		click(saveAndCloseBtn);
 	}
 
 	public void clickOneBeforeLastSlide() {
@@ -174,6 +176,7 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Get project's name")
 	public String getProjectName() {
+		wait.until(ExpectedConditions.visibilityOf(projectName));
 		return getText(projectName);
 	}
 

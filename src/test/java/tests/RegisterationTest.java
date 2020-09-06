@@ -143,8 +143,8 @@ public class RegisterationTest extends BaseTest {
 	// will provide different variation of invalid passwords
 	@DataProvider
 	public Object[][] getDataFromExcel() {
-		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToNewAccountPassExcel");
-		Object[][] table = Excel.getTableArray(excelPath, "Credentials");
+		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToExcel");
+		Object[][] table = Excel.getTableArray(excelPath, "Passwords");
 		return table;
 	}
 }

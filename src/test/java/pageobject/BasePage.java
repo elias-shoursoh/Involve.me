@@ -68,9 +68,13 @@ public class BasePage {
 
 	// drag and drop elements
 	public void dragAndDrop(WebElement el, WebElement dropZone) {
-		Actions actions = new Actions(driver);
-		actions.dragAndDrop(el, dropZone).build().perform();
-		sleep(1000);
+		Actions builder = new Actions(driver);
+		Actions dragAndDrop = builder.clickAndHold(el).moveToElement(dropZone).release(dropZone);
+		dragAndDrop.build().perform();
+//		actions.dragAndDrop(el, dropZone).perform();
+//		sleep(1000);
+//		moveToElement(dropZone);
+		// actions.click().perform();
 	}
 
 	// get text operation

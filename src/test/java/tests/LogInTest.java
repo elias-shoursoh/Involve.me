@@ -56,7 +56,7 @@ public class LogInTest extends BaseTest {
 
 	@DataProvider
 	public Object[][] getDataFromExcel() {
-		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToLogInExcel");
+		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToExcel");
 		Object[][] table = Excel.getTableArray(excelPath, "Credentials");
 		return table;
 	}

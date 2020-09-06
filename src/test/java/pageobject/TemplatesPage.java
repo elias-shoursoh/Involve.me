@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
@@ -49,13 +50,6 @@ public class TemplatesPage extends TopNavigateBar {
 	private WebElement personalityTestCatNumber;
 	@FindBy(css = "#template-gallery tbody tr")
 	private List<WebElement> templatesBlocks;
-
-	// selectors for each template
-//	private By chooseBtns = By.cssSelector("a .btn.btn-primary");
-//	private By templateTitle = By.cssSelector("div.details-container");
-
-	// Choose button's name
-//	private String choose = "choose";
 
 	// constructor
 	public TemplatesPage(WebDriver driver) {
@@ -109,7 +103,7 @@ public class TemplatesPage extends TopNavigateBar {
 
 	@Step("Select template {template}")
 	public void chooseTemplate(String templateName) {
-		sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
 		List<WebElement> templates = templatesBlocks;
 		for (WebElement template : templates) {
 			if (getText(template).contains(templateName)) {
@@ -119,9 +113,6 @@ public class TemplatesPage extends TopNavigateBar {
 				break;
 			}
 		}
-//		WebElement btn = getTemplateChooseBtn(choose, templateName);
-//		moveToElement(btn);
-//		click(btn);
 	}
 
 	@Step("Get number of displayed templates in page")
@@ -154,12 +145,4 @@ public class TemplatesPage extends TopNavigateBar {
 			return 0;
 		}
 	}
-
-	// method that returns the requested Choose button's element for the required
-	// template
-//	private WebElement getTemplateChooseBtn(String BtnName, String templateName) {
-//		List<WebElement> eBtns = getElemList(getElementFromListByText(templatesBlocks, templateTitle, templateName),
-//				chooseBtns);
-//		return getElementFromListByText(eBtns, null, BtnName);
-//	}
 }

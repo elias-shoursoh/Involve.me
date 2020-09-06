@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
@@ -15,6 +16,7 @@ import pageobject.ProjectTypePage;
 import pageobject.ProjectsPage;
 import pageobject.TemplatesPage;
 import utils.Configuration;
+import utils.Excel;
 
 public class ProjectsHandlingTest extends BaseTest {
 
@@ -91,7 +93,7 @@ public class ProjectsHandlingTest extends BaseTest {
 		int after = pep.getSlidesNumber();
 		Assert.assertTrue(after == before - 1);
 	}
-//TODO: need to fix this
+
 	@Test(priority = 7, dependsOnMethods = { "deleteSlideTest" }, description = "Edit project name feature test")
 	@Severity(SeverityLevel.NORMAL)
 	@Story("When Editting project's name from Settings page, project's name should be changed accordingly")
@@ -106,15 +108,17 @@ public class ProjectsHandlingTest extends BaseTest {
 		Assert.assertEquals(pep.getProjectName(), "FOR ANOTHER TESTING");
 
 	}
-// TODO: need to fix this
-	@Test(priority = 8, dependsOnMethods = { "deleteSlideTest" }, description = "Add rating element to project test")
+
+	// TODO: still no drag and drop whatsoever
+	@Test(priority = 8, dataProvider = "getDataFromExcel", dependsOnMethods = {
+			"addNewSlideTest" }, description = "Add content elements to project feature test")
 	@Severity(SeverityLevel.BLOCKER)
-	@Story("When dragging rating element to project, it should be added to it")
-	@Description("Adding rating element to project")
-	public void addRatingElementToProjectTest() {
+	@Story("When dragging a content element to project, it should be added")
+	@Description("Adding content element element to project")
+	public void addContentElementToProject(String element) {
 		ProjectEditPage pep = new ProjectEditPage(driver);
-		pep.addElementToProject("rating");
-		Assert.assertTrue(pep.isContentAdded("rating"));
+		pep.addElementToProject(element);
+		Assert.assertTrue(pep.isContentAdded(element));
 	}
 
 	@Test(priority = 9, alwaysRun = true, description = "Log out of account")
@@ -126,5 +130,13 @@ public class ProjectsHandlingTest extends BaseTest {
 		pp.logout();
 		LoginPage lp = new LoginPage(driver);
 		Assert.assertEquals(lp.getTitle(), "Log in");
+	}
+
+	// will provide different content elements for adding to a project
+	@DataProvider
+	public Object[][] getDataFromExcel() {
+		String excelPath = System.getProperty("user.dir") + Configuration.readProperty("pathToExcel");
+		Object[][] table = Excel.getTableArray(excelPath, "Elements");
+		return table;
 	}
 }
