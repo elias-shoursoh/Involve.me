@@ -132,10 +132,26 @@ public class ProjectsPage extends TopNavigateBar {
 		List<WebElement> projects = projectsBlocks;
 		for (WebElement project : projects) {
 			if (getText(project).contains(projectName)) {
-				// getting drop down arrow element after clicking it
+				// clicking drop down arrow
 				clickDropDownBtn(project);
 				// clicking on delete project button
 				click(project.findElement(By.cssSelector(".dropdown-menu li:nth-child(8)")));
+				break;
+			}
+		}
+		click(confirmDeleteProjectBtn);
+		sleep(3000);
+	}
+
+	@Step("Delete project {projectName} from Published section in workspace")
+	public void deletePublishedProject(String projectName) {
+		List<WebElement> projects = projectsBlocks;
+		for (WebElement project : projects) {
+			if (getText(project).contains(projectName)) {
+				// clicking drop down arrow
+				clickDropDownBtn(project);
+				// clicking on delete project button
+				click(project.findElement(By.cssSelector(".max-w-full li:nth-child(11) button")));
 				break;
 			}
 		}
@@ -175,7 +191,7 @@ public class ProjectsPage extends TopNavigateBar {
 	@Step("Select {tabName} tab")
 	public void selectTab(String tabName) {
 		for (WebElement tab : tabs) {
-			if (getText(tab).equalsIgnoreCase(tabName)) {
+			if (getText(tab).contains(tabName)) {
 				click(tab);
 				break;
 			}

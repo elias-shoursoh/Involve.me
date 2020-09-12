@@ -1,11 +1,11 @@
 package pageobject;
 
 import java.util.List;
-import org.openqa.selenium.NoSuchElementException;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,10 +68,21 @@ public class BasePage {
 
 	// drag and drop elements
 	public void dragAndDrop(WebElement el, WebElement dropZone) {
-		Actions builder = new Actions(driver);
-		Actions dragAndDrop = builder.clickAndHold(el).moveToElement(dropZone).release(dropZone);
-		dragAndDrop.build().perform();
-//		actions.dragAndDrop(el, dropZone).perform();
+//		String xto = Integer.toString(dropZone.getLocation().x);
+//		String yto = Integer.toString(dropZone.getLocation().y);
+//		js = (JavascriptExecutor) driver;
+//		js.executeScript(
+//				"function simulate(f,c,d,e){var b,a=null;for(b in eventMatchers)if(eventMatchers[b].test(c)){a=b;break}if(!a)return!1;document.createEvent?(b=document.createEvent(a),a==\"HTMLEvents\"?b.initEvent(c,!0,!0):b.initMouseEvent(c,!0,!0,document.defaultView,0,d,e,d,e,!1,!1,!1,!1,0,null),f.dispatchEvent(b)):(a=document.createEventObject(),a.detail=0,a.screenX=d,a.screenY=e,a.clientX=d,a.clientY=e,a.ctrlKey=!1,a.altKey=!1,a.shiftKey=!1,a.metaKey=!1,a.button=1,f.fireEvent(\"on\"+c,a));return!0} var eventMatchers={HTMLEvents:/^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,MouseEvents:/^(?:click|dblclick|mouse(?:down|up|over|move|out))$/}; "
+//						+ "simulate(arguments[0],\"mousedown\",0,0); simulate(arguments[0],\"mousemove\",arguments[1],arguments[2]); simulate(arguments[0],\"mouseup\",arguments[1],arguments[2]); ",
+//				dropZone, xto, yto);
+
+//		Actions builder = new Actions(driver);
+//		Action dragAndDrop = builder.clickAndHold(el)
+//				.moveByOffset(dropZone.getLocation().getX(), dropZone.getLocation().getY()).release(dropZone).build();
+//		dragAndDrop.perform();
+		Actions actions = new Actions(driver);
+		actions.dragAndDrop(el, dropZone).perform();
+		//actions.dragAndDropBy(el, 1545, 833).build().perform();
 //		sleep(1000);
 //		moveToElement(dropZone);
 		// actions.click().perform();
@@ -154,7 +165,7 @@ public class BasePage {
 		// keep the old style to change it back
 		String originalStyle = element.getAttribute("style");
 		String newStyle = "background-color:yellow;border: 1px solid " + color + ";" + originalStyle;
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js = (JavascriptExecutor) driver;
 
 		// Change the style
 		js.executeScript("var tmpArguments = arguments;setTimeout(function () {tmpArguments[0].setAttribute('style', '"

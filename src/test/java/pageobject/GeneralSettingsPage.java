@@ -3,6 +3,7 @@ package pageobject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
@@ -18,6 +19,8 @@ public class GeneralSettingsPage extends TopNavigateBar {
 	private WebElement updateSettingsBtn;
 	@FindBy(css = "#confirm-publish-button")
 	private WebElement publishNowBtn;
+	@FindBy(css = "p.block a")
+	private WebElement publishAnywayView;
 
 	// constructor
 	public GeneralSettingsPage(WebDriver driver) {
@@ -28,6 +31,12 @@ public class GeneralSettingsPage extends TopNavigateBar {
 	public void publishProject() {
 		click(publishBtn);
 		click(publishNowBtn);
+		try {
+			wait.until(ExpectedConditions.visibilityOf(publishAnywayView));
+			click(publishNowBtn);
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Step("Click Update Settings button")
@@ -38,6 +47,7 @@ public class GeneralSettingsPage extends TopNavigateBar {
 	@Step("click Edit Project button")
 	public void clickEditProject() {
 		click(editProjectBtn);
+		sleep(1000);
 	}
 
 	@Step("Editing project's name to {name} via General Setting page")

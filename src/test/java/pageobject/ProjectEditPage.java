@@ -39,7 +39,6 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "[for=\"select-outcomes\"]")
 	private WebElement outcomePagesTypeBtn;
 	@FindBy(css = ".vcentered.bgfixed")
-	// @FindBy(css = "div.drag-drop-wrapper")
 	// @FindBy(css = ".empty-canvas-info.center-center")
 	private WebElement dropZone;
 	@FindBy(css = ".has-rating")
@@ -79,6 +78,12 @@ public class ProjectEditPage extends BasePage {
 	@Step("Click SETTINGS button")
 	public void clickSettings() {
 		click(settingsLinkBtn);
+	}
+
+	@Step("Click PUBLISH button")
+	public void clickPublish() {
+		click(publishBtn);
+		sleep(1000);
 	}
 
 	@Step("Open new project for editing - project name: {projectName}, project type: {projectType}")
@@ -169,7 +174,7 @@ public class ProjectEditPage extends BasePage {
 		}
 	}
 
-	@Step("Check is new project pop up is displayed")
+	@Step("Check if new project pop up is displayed")
 	public boolean isNewProjectPopUpDisplayed() {
 		return isElementDisplayed(newProjectPopUp);
 	}
