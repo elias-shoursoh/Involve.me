@@ -117,11 +117,13 @@ public class TemplatesPage extends TopNavigateBar {
 
 	@Step("Get number of displayed templates in page")
 	public int getTemplatesNumber() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
 		return templatesBlocks.size();
 	}
 
 	@Step("Get the number displayed next to category name {catName}")
 	public int getCategoryDisplayedNumber(String catName) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
 		switch (catName) {
 		case "all":
 			return Integer.parseInt(getText(allCatNumber));

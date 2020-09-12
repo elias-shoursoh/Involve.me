@@ -88,6 +88,8 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Open new project for editing - project name: {projectName}, project type: {projectType}")
 	public void editProjectPrep(String projectName, String projectType) {
+		clearTextBox(projectNameField);
+		sleep(1000);
 		fillText(projectNameField, projectName);
 		switch (projectType) {
 		case "thank you page":
@@ -189,5 +191,4 @@ public class ProjectEditPage extends BasePage {
 	public String getProjectNameErrorMsg() {
 		return getText(projectNameErrorMsg);
 	}
-
 }
