@@ -22,7 +22,7 @@ public class BaseTest {
 	public void setup(ITestContext testContext) {
 		createDriver(Configuration.readProperty("browserType"));
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		testContext.setAttribute("WebDriver", this.driver);
 		driver.get(Configuration.readProperty("TestedSiteUrl"));
 	}
