@@ -156,7 +156,7 @@ public class ProjectsPage extends TopNavigateBar {
 			}
 		}
 		click(confirmDeleteProjectBtn);
-		sleep(3000);
+		sleep(4000);
 	}
 
 	@Step("Cancel project deletion")

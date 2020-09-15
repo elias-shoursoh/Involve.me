@@ -115,6 +115,20 @@ public class TemplatesPage extends TopNavigateBar {
 		}
 	}
 
+	@Step("Preview template {template}")
+	public void previewTemplate(String templateName) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
+		List<WebElement> templates = templatesBlocks;
+		for (WebElement template : templates) {
+			if (getText(template).contains(templateName)) {
+				WebElement btn = template.findElement(By.cssSelector(".btn-preview"));
+				moveToElement(btn);
+				click(btn);
+				break;
+			}
+		}
+	}
+
 	@Step("Get number of displayed templates in page")
 	public int getTemplatesNumber() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));

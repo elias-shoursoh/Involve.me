@@ -3,6 +3,7 @@ package pageobject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
@@ -57,6 +58,7 @@ public class TopNavigateBar extends BasePage {
 	@Step("Click Account tab then click logout")
 	public void logout() {
 		click(accountBtn);
+		wait.until(ExpectedConditions.visibilityOf(logoutBtn));
 		click(logoutBtn);
 	}
 }

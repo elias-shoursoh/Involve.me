@@ -2,6 +2,7 @@ package pageobject;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,7 +21,7 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "#bs-example-navbar-collapse-1 li:nth-child(4) a")
 	private WebElement settingsLinkBtn;
 	@FindBy(css = ".e-close.nav-link")
-	private WebElement saveAndExitBt;
+	private WebElement saveAndExitBtn;
 	@FindBy(css = "#content-item-tab")
 	private WebElement contentElementsBtn;
 	@FindBy(css = "#tab-design-settings")
@@ -38,8 +39,7 @@ public class ProjectEditPage extends BasePage {
 	private WebElement thankYouPageTypeBtn;
 	@FindBy(css = "[for=\"select-outcomes\"]")
 	private WebElement outcomePagesTypeBtn;
-	@FindBy(css = ".vcentered.bgfixed")
-	// @FindBy(css = ".empty-canvas-info.center-center")
+	@FindBy(css = "div.content-item-wrapper")
 	private WebElement dropZone;
 	@FindBy(css = ".has-rating")
 	private WebElement ratingContent;
@@ -58,12 +58,14 @@ public class ProjectEditPage extends BasePage {
 
 	@FindBy(css = ".e-pages-container.fitsNavigation .e-page-management")
 	private List<WebElement> pages;
-	@FindBy(css = "#tab1contentitems p")
+	@FindBy(css = "div.content-menu-item")
 	private List<WebElement> contentList;
 	@FindBy(css = ".e-pages-container .e-page-management")
 	private List<WebElement> slidesList;
 	@FindBy(css = "[title=\"Delete page\"]")
 	private List<WebElement> deleteSlideBtns;
+
+	private static int counter = 0;
 
 	// constructor
 	public ProjectEditPage(WebDriver driver) {
@@ -72,7 +74,7 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Click SAVE & EXIT button")
 	public void clickSaveAndExit() {
-		click(saveAndExitBt);
+		click(saveAndExitBtn);
 	}
 
 	@Step("Click SETTINGS button")
@@ -88,8 +90,6 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Open new project for editing - project name: {projectName}, project type: {projectType}")
 	public void editProjectPrep(String projectName, String projectType) {
-		clearTextBox(projectNameField);
-		sleep(1000);
 		fillText(projectNameField, projectName);
 		switch (projectType) {
 		case "thank you page":
@@ -121,8 +121,14 @@ public class ProjectEditPage extends BasePage {
 	@Step("Add the element {element} to project")
 	public void addElementToProject(String element) {
 		for (WebElement content : contentList) {
-			if (getText(content).equalsIgnoreCase(element)) {
-				dragAndDrop(content, dropZone);
+			if (getText(content).contains(element)) {
+				if (counter == 0) {
+					dragAndDrop(content, dropZone);
+					counter++;
+				} else {
+					dragAndDrop(content, (dropZone.findElements(By.cssSelector(".content-item")).get(0)));
+				}
+
 				break;
 			}
 		}
@@ -155,6 +161,7 @@ public class ProjectEditPage extends BasePage {
 
 	@Step("Get project's slides number")
 	public int getSlidesNumber() {
+		sleep(1000);
 		List<WebElement> slides = slidesList;
 		return slides.size();
 	}
@@ -167,9 +174,9 @@ public class ProjectEditPage extends BasePage {
 	@Step("Check if content {content} is displayed on project")
 	public boolean isContentAdded(String content) {
 		switch (content) {
-		case "rating":
+		case "Rating":
 			return isElementDisplayed(ratingContent);
-		case "contact form":
+		case "Contact Form":
 			return isElementDisplayed(contactFormContent);
 		default:
 			return false;

@@ -10,6 +10,8 @@
 			<class name="tests.ForgotPasswordTest" />
 			<class name="tests.RegisterationTest" />
 			<class name="tests.WorkspacesTest" />
+			<class name="tests.ProjectsHandlingTest" />
+			<class name="tests.TemplatesTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

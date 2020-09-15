@@ -11,6 +11,7 @@ import pageobject.AboutPage;
 import pageobject.LoginPage;
 import pageobject.ProjectTypePage;
 import pageobject.ProjectsPage;
+import pageobject.TemplateConfirmationPage;
 import pageobject.TemplatesPage;
 import utils.Configuration;
 
@@ -120,7 +121,66 @@ public class TemplatesTest extends BaseTest {
 		Assert.assertTrue(tp.getCategoryDisplayedNumber("personality test") == tp.getTemplatesNumber());
 	}
 
-	@Test(priority = 11, alwaysRun = true, description = "Log out of account")
+	@Test(priority = 11, dependsOnMethods = { "logIn" }, description = "Preview History quiz in desktop view test")
+	@Story("When selecting to preview History quiz, and choosing desktop view, the quiz can be taken without issues ")
+	@Description("History quiz preview in desktop mode")
+	public void quizTemplateDesktopViewTest() {
+		TemplatesPage tp = new TemplatesPage(driver);
+		tp.clickQuiz();
+		tp.previewTemplate("Test Your History Know-How");
+		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
+		tcp.tryHistoryTemplate("desktop");
+		try {
+			Assert.assertEquals(tcp.getFeedbackText(), "Thank you for participating!");
+		} finally {
+			tcp.clickCancel();
+		}
+	}
+
+	// still not working
+	@Test(priority = 12, dependsOnMethods = {
+			"logIn" }, description = "Preview History quiz in mobile view test", enabled = false)
+	@Story("When selecting to preview History quiz, and choosing mobile view, the quiz can be taken without issues ")
+	@Description("History quiz preview in mobile mode")
+	public void quizTemplateMobileView() {
+		TemplatesPage tp = new TemplatesPage(driver);
+		tp.clickQuiz();
+		tp.previewTemplate("Test Your History Know-How");
+		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
+		tcp.tryHistoryTemplate("mobile");
+		try {
+			Assert.assertEquals(tcp.getFeedbackText(), "Thank you for participating!");
+		} finally {
+			tcp.clickCancel();
+		}
+	}
+
+	@Test(priority = 13, dependsOnMethods = { "logIn" }, description = "Giving a correct answer in quiz test")
+	@Story("When answering a quiz with the correct answer, a correct answer message should appear")
+	@Description("Correct answer test")
+	public void correctAnswerInQuizTest() {
+		TemplatesPage tp = new TemplatesPage(driver);
+		tp.clickQuiz();
+		tp.previewTemplate("90s Nostalgia Quiz");
+		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
+		tcp.tryNostalgiaQuizTemplate("correct");
+		Assert.assertTrue(tcp.isCorrectAnswerDisplayed());
+	}
+
+	@Test(priority = 14, dependsOnMethods = { "correctAnswerInQuizTest" }, description = "Giving a wrong answer in quiz test")
+	@Story("When answering a quiz with a wrong answer, a wrong answer message should appear")
+	@Description("Wrong answer test")
+	public void wrongAnswerInQuizTest() {
+		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
+		tcp.tryNostalgiaQuizTemplate("wrong");
+		try {
+			Assert.assertTrue(tcp.isWrongAnswerDisplayed());
+		} finally {
+			tcp.clickCancel();
+		}
+	}
+
+	@Test(priority = 15, alwaysRun = true, description = "Log out of account")
 	public void logout() {
 		TemplatesPage tp = new TemplatesPage(driver);
 		tp.logout();
