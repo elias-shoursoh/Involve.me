@@ -248,6 +248,7 @@ public class ProjectsPage extends TopNavigateBar {
 	// checks if all projects in view are with the same name (this is used after
 	// search functionality)
 	public boolean isProjectFoundAfterSearch(String project) {
+		sleep(1000);
 		List<WebElement> projectsNames = projectsTitles;
 		for (WebElement name : projectsNames) {
 			if (!getText(name).equalsIgnoreCase(project)) {

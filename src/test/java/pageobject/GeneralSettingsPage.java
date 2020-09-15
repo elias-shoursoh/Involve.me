@@ -50,9 +50,10 @@ public class GeneralSettingsPage extends TopNavigateBar {
 		sleep(2000);
 	}
 
-	@Step("Editing project's name to {name} via General Setting page")
+	@Step("Editing project's name to \"{name}\" via General Setting page")
 	public void editProjectName(String name) {
 		fillText(projectNameField, name);
 		clickUpdateSettings();
+		sleep(1000);
 	}
 }

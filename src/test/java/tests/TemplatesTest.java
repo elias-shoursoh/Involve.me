@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -142,6 +143,7 @@ public class TemplatesTest extends BaseTest {
 			"logIn" }, description = "Preview History quiz in mobile view test", enabled = false)
 	@Story("When selecting to preview History quiz, and choosing mobile view, the quiz can be taken without issues ")
 	@Description("History quiz preview in mobile mode")
+	@Issue("Move to Next button fails")
 	public void quizTemplateMobileView() {
 		TemplatesPage tp = new TemplatesPage(driver);
 		tp.clickQuiz();
