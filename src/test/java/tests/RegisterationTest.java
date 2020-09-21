@@ -27,7 +27,7 @@ public class RegisterationTest extends BaseTest {
 	private final String invalidEmail = "elias";
 	private final String shortPass = "jkl";
 
-	@Test(priority = 1, description = "Registeration feature test", enabled = false)
+	@Test(priority = 1, description = "Registeration feature test")
 	@Story("When registering with valid credentials but with an exisitng email address, an error message should appear")
 	@Description("Creating new account with valid input but with an existing email address")
 	public void createNewAccountWithExistingEmailTest() {
