@@ -127,7 +127,7 @@ public class ProjectsPage extends TopNavigateBar {
 		fillText(searchField, name);
 	}
 
-	@Step("Delete project {title} from workspace")
+	@Step("Delete project {projectName} from workspace")
 	public void deleteProject(String projectName) {
 		List<WebElement> projects = projectsBlocks;
 		for (WebElement project : projects) {
