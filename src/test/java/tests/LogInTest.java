@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -15,6 +16,7 @@ import utils.Configuration;
 import utils.Excel;
 
 @Severity(SeverityLevel.BLOCKER)
+@Epic("Login Feature's Functionality")
 public class LogInTest extends BaseTest {
 
 	private final String title = "My Workspace";
@@ -49,6 +51,8 @@ public class LogInTest extends BaseTest {
 	@Description("Log in with various emails and passwords")
 	public void invalidLogInTest(String username, String password) {
 		LoginPage lp = new LoginPage(driver);
+		// the below is commented out because it is only used if need be to debug this
+		// test case
 		// lp.clickLogin();
 		lp.logIn(username, password);
 		Assert.assertEquals(lp.getInvalidCredsMsg(), invalidLogInMsg);

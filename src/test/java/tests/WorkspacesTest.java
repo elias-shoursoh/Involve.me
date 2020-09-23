@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -16,6 +17,7 @@ import pageobject.TemplatesPage;
 import utils.Configuration;
 
 @Severity(SeverityLevel.NORMAL)
+@Epic("WorkSpaces Creation and Editing Functionality")
 public class WorkspacesTest extends BaseTest {
 
 	private String projectName = "for testing";
@@ -138,7 +140,7 @@ public class WorkspacesTest extends BaseTest {
 	@Severity(SeverityLevel.CRITICAL)
 	@Story("When selecting a project to delete it, it should be removed from workspace")
 	@Description("Deleting an existing project from workspace")
-	public void deleteProjectFromWorkspace() {
+	public void deleteProjectFromWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
 		pp.deleteProject(projectName);

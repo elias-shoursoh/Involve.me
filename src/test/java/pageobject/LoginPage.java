@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Login POM*/
+/* Login page */
 public class LoginPage extends TopMenuBar {
 
 	@FindBy(css = "[name=\"email\"]")

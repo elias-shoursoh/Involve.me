@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -21,6 +22,7 @@ import utils.Configuration;
 import utils.Excel;
 
 @Severity(SeverityLevel.BLOCKER)
+@Epic("Projects' Creation And Editing Features")
 public class ProjectsHandlingTest extends BaseTest {
 
 	private final String requiredFieldMsg = "This field is required.";
@@ -118,7 +120,6 @@ public class ProjectsHandlingTest extends BaseTest {
 
 	}
 
-	// NOTE: Does not work unfortunately
 	@Test(priority = 8, dataProvider = "getDataFromExcel", dependsOnMethods = {
 			"addNewSlideTest" }, description = "Add content elements to project feature test", enabled = false)
 	@Story("When dragging a content element to project, it should be added")
@@ -137,10 +138,11 @@ public class ProjectsHandlingTest extends BaseTest {
 	public void pagesHaveNoLinkWarningTest() {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.clickPublish();
-		try { // In case warning pop up does not appear
+		try {
 			Assert.assertTrue(pep.isNoLinkWarningMsgDisplayed());
 			pep.closeNoLinkWarningPopUp();
-		} catch (Exception e) { // If no warning pop up arises then test will fail and test suite will continue
+		} catch (Exception e) { // If no warning pop up arises then test will fail but test suite will continue
+			// pass
 		}
 	}
 

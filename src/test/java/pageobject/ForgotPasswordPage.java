@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Forgot password POM*/
+/* Forgot password page */
 public class ForgotPasswordPage extends BasePage {
 
 	@FindBy(css = "[name=\"email\"]")

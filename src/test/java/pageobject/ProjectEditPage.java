@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
+/* Project Edit page - the page where adding to and editing projects is done */
 public class ProjectEditPage extends BasePage {
 
 	@FindBy(css = "input#project-name")
@@ -105,7 +106,7 @@ public class ProjectEditPage extends BasePage {
 		click(startEditingBtn);
 	}
 
-	@Step("Open new project with invalid name")
+	@Step("Open new project with invalid name - {projectName}")
 	public void editInvalidProjectName(String projectName) {
 		switch (projectName) {
 		case "":
@@ -135,15 +136,14 @@ public class ProjectEditPage extends BasePage {
 		click(saveAndCloseBtn);
 	}
 
+	@Step("Selecting the slide that is one before the last")
 	public void clickOneBeforeLastSlide() {
-		// moving the slide that is one before the last
 		List<WebElement> slides = slidesList;
 		slides.get(slides.size() - 2).click();
 	}
 
 	@Step("Add new slide to project")
 	public void addNewSlide() {
-		// clickOneBeforeLastSlide();
 		click(addNewSlideBtn);
 	}
 

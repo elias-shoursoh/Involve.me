@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
-/*Top navigation bar POM*/
+/*Top navigation bar - the bar that appears at the top of the screen post log in*/
 public class TopNavigateBar extends BasePage {
 
 	@FindBy(css = "#nav-dropdown")

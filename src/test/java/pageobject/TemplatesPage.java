@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
+/* Templates page - contains variety of templates to select */
 public class TemplatesPage extends TopNavigateBar {
 
 	@FindBy(css = "a#filter-all")
@@ -101,7 +102,7 @@ public class TemplatesPage extends TopNavigateBar {
 		click(personalityTestCategory);
 	}
 
-	@Step("Select template {template}")
+	@Step("Select template {templateName}")
 	public void chooseTemplate(String templateName) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
 		List<WebElement> templates = templatesBlocks;
@@ -115,7 +116,7 @@ public class TemplatesPage extends TopNavigateBar {
 		}
 	}
 
-	@Step("Preview template {template}")
+	@Step("Preview template {templateName}")
 	public void previewTemplate(String templateName) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#template-gallery")));
 		List<WebElement> templates = templatesBlocks;

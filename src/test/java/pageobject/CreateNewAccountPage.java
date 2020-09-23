@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Create new account POM*/
+/* Create new account page */
 public class CreateNewAccountPage extends TopMenuBar {
 	JavascriptExecutor executor;
 
@@ -52,7 +52,7 @@ public class CreateNewAccountPage extends TopMenuBar {
 		fillNameAndOrganization(name);
 		fillText(emailField, email);
 		fillText(passwordField, "Jkljkm1c123");
-		executor = (JavascriptExecutor)driver;
+		executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", termsCheckBox);
 		click(registerBtn);
 	}
@@ -95,11 +95,11 @@ public class CreateNewAccountPage extends TopMenuBar {
 
 	// method that fills the name and organization in new account form
 	private void fillNameAndOrganization(String name) {
-		// sleep(3000);
 		fillText(nameField, name);
 		// concatenates "Automation" string to a random number between 0 to 999
 		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
 		clearTextBox(organizationField);
+		// filling text second time because at first time it gives a wrong text
 		fillText(organizationField, "Automation" + String.valueOf(rand.nextInt(1000)));
 		// if this organization exists, then enter another organization
 		while (isNotAvailable()) {

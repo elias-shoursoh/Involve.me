@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -12,6 +13,7 @@ import pageobject.ForgotPasswordPage;
 import pageobject.LoginPage;
 import utils.Configuration;
 @Severity(SeverityLevel.CRITICAL)
+@Epic("Forgot Password Feature's Functionality")
 public class ForgotPasswordTest extends BaseTest {
 
 	private final String successMsg = "A reset link has been sent to the email address, if it has been used to register for an account.";

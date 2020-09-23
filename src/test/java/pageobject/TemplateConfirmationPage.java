@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/* Template Confirmation page - where a preview of the template can be made */
 public class TemplateConfirmationPage extends BasePage {
 
 	@FindBy(css = "div.e-use-template")

@@ -5,6 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -14,6 +15,7 @@ import utils.Configuration;
 import utils.Excel;
 
 @Severity(SeverityLevel.CRITICAL)
+@Epic("Creation Of A New Account Functionality")
 public class RegisterationTest extends BaseTest {
 
 	private final String name = "Mathew Wallace";
@@ -93,11 +95,11 @@ public class RegisterationTest extends BaseTest {
 	@Description("Creating new account with invalid password")
 	public void createNewAccountWithInvalidPasswordTest(String passowrd) {
 		try { // the first test in this series of tests will enter the try block since the
-				// first page after browsing is the about page
+				// first page after browsing is the About page
 			AboutPage ap = new AboutPage(driver);
 			ap.clickRegisterLink();
-		} catch (Exception e) { // the rest of the tests will enter the catch block since now it will be in new
-								// account page
+		} catch (Exception e) { // the rest of the tests will enter the catch block since now it will be in New
+								// Account page
 			CreateNewAccountPage cp = new CreateNewAccountPage(driver);
 			cp.clickRegister();
 		}
@@ -127,11 +129,11 @@ public class RegisterationTest extends BaseTest {
 	@Description("Creating new account with empty password")
 	public void createNewAccountWithEmptyPasswordTest() {
 		try { // the first test in this series of tests will enter the try block since the
-				// first page after browsing is the about page
+				// first page after browsing is the About page
 			AboutPage ap = new AboutPage(driver);
 			ap.clickRegisterLink();
-		} catch (Exception e) { // the rest of the tests will enter the catch block since now it will be in new
-								// account page
+		} catch (Exception e) { // the rest of the tests will enter the catch block since now it will be in New
+								// Account page
 			CreateNewAccountPage cp = new CreateNewAccountPage(driver);
 			cp.clickRegister();
 		}

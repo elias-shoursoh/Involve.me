@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Top menu bar POM*/
+/*Top menu bar - the bar that appears on the top of screen prior to log in */
 public class TopMenuBar extends BasePage {
 
 	@FindBy(css = "[href=\"https://app.involve.me/login\"]")

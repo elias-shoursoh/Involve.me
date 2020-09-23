@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
 
+/* General Settings page */
 public class GeneralSettingsPage extends TopNavigateBar {
 
 	@FindBy(css = "div.flex.justify-between span")
@@ -35,7 +36,7 @@ public class GeneralSettingsPage extends TopNavigateBar {
 			wait.until(ExpectedConditions.visibilityOf(publishAnywayView));
 			click(publishNowBtn);
 		} catch (Exception e) {
-
+			// pass
 		}
 	}
 

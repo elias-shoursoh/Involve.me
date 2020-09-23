@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
+/* Publish page - the page that confirms a project was published */
 public class PublishPage extends TopNavigateBar {
 
 	@FindBy(css = "h1.e-title")

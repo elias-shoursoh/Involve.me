@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -17,7 +18,10 @@ import pageobject.TemplatesPage;
 import utils.Configuration;
 
 @Severity(SeverityLevel.NORMAL)
+@Epic("Templates Feature's Functionality")
 public class TemplatesTest extends BaseTest {
+
+	private String feedbackMsg = "Thank you for participating!";
 
 	@Test(priority = 1, alwaysRun = true, description = "Log in to account")
 	public void logIn() {
@@ -132,13 +136,12 @@ public class TemplatesTest extends BaseTest {
 		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
 		tcp.tryHistoryTemplate("desktop");
 		try {
-			Assert.assertEquals(tcp.getFeedbackText(), "Thank you for participating!");
+			Assert.assertEquals(tcp.getFeedbackText(), feedbackMsg);
 		} finally {
 			tcp.clickCancel();
 		}
 	}
 
-	// still not working
 	@Test(priority = 12, dependsOnMethods = {
 			"logIn" }, description = "Preview History quiz in mobile view test", enabled = false)
 	@Story("When selecting to preview History quiz, and choosing mobile view, the quiz can be taken without issues ")
@@ -151,7 +154,7 @@ public class TemplatesTest extends BaseTest {
 		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
 		tcp.tryHistoryTemplate("mobile");
 		try {
-			Assert.assertEquals(tcp.getFeedbackText(), "Thank you for participating!");
+			Assert.assertEquals(tcp.getFeedbackText(), feedbackMsg);
 		} finally {
 			tcp.clickCancel();
 		}
@@ -169,7 +172,8 @@ public class TemplatesTest extends BaseTest {
 		Assert.assertTrue(tcp.isCorrectAnswerDisplayed());
 	}
 
-	@Test(priority = 14, dependsOnMethods = { "correctAnswerInQuizTest" }, description = "Giving a wrong answer in quiz test")
+	@Test(priority = 14, dependsOnMethods = {
+			"correctAnswerInQuizTest" }, description = "Giving a wrong answer in quiz test")
 	@Story("When answering a quiz with a wrong answer, a wrong answer message should appear")
 	@Description("Wrong answer test")
 	public void wrongAnswerInQuizTest() {

@@ -20,7 +20,7 @@ import org.testng.annotations.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utils.Configuration;
 
-/*BaseTest class that will be inherited by all test classes; does setup and tear down for each test*/
+/* BaseTest class that will be inherited by all test classes; does setup and tear down for each test */
 public class BaseTest {
 
 	WebDriver driver;
@@ -28,9 +28,10 @@ public class BaseTest {
 	@Parameters({ "debug" })
 	@BeforeClass(description = "initializing driver and navigating to tested site url")
 	public void setup(ITestContext testContext, boolean debug) throws MalformedURLException {
+		// in case debug is set to true - perform a regular selenium automation
 		if (debug) {
 			createDriver(Configuration.readProperty("browserType"));
-		} else {
+		} else { // otherwise, perform automation with remote driver in a docker
 			createRemoteDriver(Configuration.readProperty("browserType"));
 		}
 		driver.manage().window().maximize();
@@ -69,6 +70,8 @@ public class BaseTest {
 		}
 	}
 
+	// method that handles remote driver type according to the required browser
+	// string
 	private void createRemoteDriver(String browser) throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		switch (browser) {
@@ -80,7 +83,7 @@ public class BaseTest {
 			capabilities.setBrowserName("firefox");
 			capabilities.setVersion("79.0");
 			break;
-		default:
+		default: // open use Chrome by default in case no string matched
 			capabilities.setBrowserName("chrome");
 			capabilities.setVersion("85.0");
 			break;

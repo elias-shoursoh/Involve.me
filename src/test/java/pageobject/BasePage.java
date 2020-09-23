@@ -1,9 +1,6 @@
 package pageobject;
 
-import java.util.List;
-
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -79,22 +76,6 @@ public class BasePage {
 		return el.getText();
 	}
 
-	// get element from a web element list according to a passed string
-	public WebElement getElementFromListByText(List<WebElement> list, By locator, String txt) {
-		for (WebElement elem : list) {
-			if (locator != null) { // in case locator is required
-				if (getText(elem.findElement(locator)).equalsIgnoreCase(txt)) {
-					return elem;
-				} else { // in case no locator is required
-					if (getText(elem).equalsIgnoreCase(txt)) {
-						return elem;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
 	// returns Select object
 	public Select select(WebElement selection) {
 		Select select = new Select(selection);
@@ -124,13 +105,6 @@ public class BasePage {
 	// back to the main HTML page
 	public void switchOutOfFrame() {
 		driver.switchTo().defaultContent();
-	}
-
-	// returns web elements list of a certain passed wrapper web element according
-	// to a By object
-	public List<WebElement> getElemList(WebElement wrapper, By locator) {
-		sleep(500);
-		return wrapper.findElements(locator);
 	}
 
 	// returns true if given element is displayed on page

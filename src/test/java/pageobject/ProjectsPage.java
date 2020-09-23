@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
 
-/*Projects POM - Where projects are added and edited*/
+/*Projects Page - Where projects are added and edited*/
 public class ProjectsPage extends TopNavigateBar {
 
 	@FindBy(css = "#app .px-4 a")
@@ -130,6 +130,12 @@ public class ProjectsPage extends TopNavigateBar {
 	@Step("Delete project {projectName} from workspace")
 	public void deleteProject(String projectName) {
 		List<WebElement> projects = projectsBlocks;
+		// counter for the maximum number of iterations to wait for the project to be
+		// deleted/removed from page
+		long counter = 0;
+		// will be used for waiting until project is deleted before finishing this
+		// method
+		int projectsListSize = projects.size();
 		for (WebElement project : projects) {
 			if (getText(project).contains(projectName)) {
 				// clicking drop down arrow
@@ -140,12 +146,23 @@ public class ProjectsPage extends TopNavigateBar {
 			}
 		}
 		click(confirmDeleteProjectBtn);
-		sleep(3000);
+		projects = projectsBlocks;
+		// while list size is still the same and counter < 2000 continue waiting
+		while (projectsListSize == projects.size() && counter < 2000) {
+			projects = projectsBlocks;
+			counter++;
+		}
 	}
 
 	@Step("Delete project {projectName} from Published section in workspace")
 	public void deletePublishedProject(String projectName) {
 		List<WebElement> projects = projectsBlocks;
+		// counter for the maximum number of iterations to wait for the project to be
+		// deleted/removed from page
+		long counter = 0;
+		// will be used for waiting until project is deleted before finishing this
+		// method
+		int projectsListSize = projects.size();
 		for (WebElement project : projects) {
 			if (getText(project).contains(projectName)) {
 				// clicking drop down arrow
@@ -156,7 +173,12 @@ public class ProjectsPage extends TopNavigateBar {
 			}
 		}
 		click(confirmDeleteProjectBtn);
-		sleep(4000);
+		projects = projectsBlocks;
+		// while list size is still the same and counter < 2000 continue waiting
+		while (projectsListSize == projects.size() && counter < 2000) {
+			projects = projectsBlocks;
+			counter++;
+		}
 	}
 
 	@Step("Cancel project deletion")
@@ -174,7 +196,7 @@ public class ProjectsPage extends TopNavigateBar {
 		click(cancelProjectDeletionBtn);
 	}
 
-	@Step("Go to project's preview page")
+	@Step("Go to {projectName}'s preview page")
 	public void clickAnalytics(String projectName) {
 		List<WebElement> projects = projectsBlocks;
 		for (WebElement project : projects) {
