@@ -116,12 +116,23 @@
 							<value>https://example.org/tms/{}</value>
 						</property>
 					</systemProperties>
+					<systemPropertyVariables>
+						<debug>false</debug>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>allure-results</directory>
+						</fileset>
+					</filesets>
+					<failOnError>false</failOnError>
+				</configuration>
 			</plugin>
 			<!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
 			<plugin>
