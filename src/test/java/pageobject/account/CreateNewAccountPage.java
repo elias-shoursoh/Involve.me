@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.account;
 
 import java.util.Random;
 
@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopMenuBar;
 
 /* Create new account page */
 public class CreateNewAccountPage extends TopMenuBar {

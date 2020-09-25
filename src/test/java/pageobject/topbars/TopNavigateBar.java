@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.topbars;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
+import pageobject.basepage.BasePage;
 
 /*Top navigation bar - the bar that appears at the top of the screen post log in*/
 public class TopNavigateBar extends BasePage {

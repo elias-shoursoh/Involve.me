@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.templates;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.basepage.BasePage;
 
 /* Template Confirmation page - where a preview of the template can be made */
 public class TemplateConfirmationPage extends BasePage {

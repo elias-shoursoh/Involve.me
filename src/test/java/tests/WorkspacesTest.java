@@ -8,12 +8,12 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import pageobject.AboutPage;
-import pageobject.LoginPage;
-import pageobject.ProjectEditPage;
-import pageobject.ProjectTypePage;
-import pageobject.ProjectsPage;
-import pageobject.TemplatesPage;
+import pageobject.account.LoginPage;
+import pageobject.mainpage.AboutPage;
+import pageobject.projects.ProjectEditPage;
+import pageobject.projects.ProjectTypePage;
+import pageobject.templates.TemplatesPage;
+import pageobject.workspaces.ProjectsPage;
 import utils.Configuration;
 
 @Severity(SeverityLevel.NORMAL)

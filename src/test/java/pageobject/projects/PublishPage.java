@@ -1,10 +1,11 @@
-package pageobject;
+package pageobject.projects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopNavigateBar;
 
 /* Publish page - the page that confirms a project was published */
 public class PublishPage extends TopNavigateBar {

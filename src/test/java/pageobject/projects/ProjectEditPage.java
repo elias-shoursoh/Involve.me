@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.projects;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
+import pageobject.basepage.BasePage;
 
 /* Project Edit page - the page where adding to and editing projects is done */
 public class ProjectEditPage extends BasePage {

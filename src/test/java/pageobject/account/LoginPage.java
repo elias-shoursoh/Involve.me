@@ -1,10 +1,11 @@
-package pageobject;
+package pageobject.account;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopMenuBar;
 
 /* Login page */
 public class LoginPage extends TopMenuBar {

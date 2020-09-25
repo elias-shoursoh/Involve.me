@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.basepage;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /*Base class that wraps Selenium operations and will be inherited by all POMs*/
 public class BasePage {
 
-	WebDriver driver;
+	protected WebDriver driver;
 	Alert alert;
 	JavascriptExecutor js;
 	protected WebDriverWait wait;

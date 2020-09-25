@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.templates;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopNavigateBar;
 
 /* Templates page - contains variety of templates to select */
 public class TemplatesPage extends TopNavigateBar {

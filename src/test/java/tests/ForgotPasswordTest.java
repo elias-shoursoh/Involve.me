@@ -8,9 +8,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import pageobject.AboutPage;
-import pageobject.ForgotPasswordPage;
-import pageobject.LoginPage;
+import pageobject.account.ForgotPasswordPage;
+import pageobject.account.LoginPage;
+import pageobject.mainpage.AboutPage;
 import utils.Configuration;
 @Severity(SeverityLevel.CRITICAL)
 @Epic("Forgot Password Feature's Functionality")

@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.workspaces;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopNavigateBar;
 
 /*Projects Page - Where projects are added and edited*/
 public class ProjectsPage extends TopNavigateBar {

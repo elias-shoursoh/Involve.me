@@ -1,10 +1,11 @@
-package pageobject;
+package pageobject.mainpage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import io.qameta.allure.Step;
+import pageobject.basepage.BasePage;
 
 /* About page - the first page that appears when browsing to involve.me URL */
 public class AboutPage extends BasePage {

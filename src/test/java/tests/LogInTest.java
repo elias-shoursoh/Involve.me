@@ -9,9 +9,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import pageobject.AboutPage;
-import pageobject.LoginPage;
-import pageobject.ProjectsPage;
+import pageobject.account.LoginPage;
+import pageobject.mainpage.AboutPage;
+import pageobject.workspaces.ProjectsPage;
 import utils.Configuration;
 import utils.Excel;
 

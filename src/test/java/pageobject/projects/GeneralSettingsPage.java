@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.projects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.qameta.allure.Step;
+import pageobject.topbars.TopNavigateBar;
 
 /* General Settings page */
 public class GeneralSettingsPage extends TopNavigateBar {
