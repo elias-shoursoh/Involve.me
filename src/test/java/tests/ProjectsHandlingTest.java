@@ -124,6 +124,7 @@ public class ProjectsHandlingTest extends BaseTest {
 			"addNewSlideTest" }, description = "Add content elements to project feature test", enabled = false)
 	@Story("When dragging a content element to project, it should be added")
 	@Description("Adding content element element to project")
+	@Issue("Drag and drop doesn not work in page. possible javascript bug")
 	public void addContentElementToProject(String element) {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.addElementToProject(element);
