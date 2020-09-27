@@ -14,14 +14,11 @@ public class AllureAttachment {
 	public static String addTextAttachment(String message) {
 		return message;
 	}
-	
-	
+
 	@Attachment(value = "Page Screenshot", type = "image/png", fileExtension = ".png")
 	public static byte[] captureScreenshot(WebDriver driver) {
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
-	
-	
 
 	@Attachment(value = "Html source", type = "text/html", fileExtension = ".html")
 	public static byte[] getPageSource(WebDriver driver) {
