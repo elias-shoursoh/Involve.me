@@ -70,10 +70,9 @@ public class ProjectsHandlingTest extends BaseTest {
 
 	// Bug in web site
 	@Test(priority = 4, dependsOnMethods = {
-			"prepareProjectTest" }, description = "Adding project with less than 3 characters name test", enabled = false)
+			"prepareProjectTest" }, description = "Adding project with less than 3 characters name test")
 	@Story("When trying to add a new project with a name that has less than 3 characters, an error message should appear")
 	@Description("Adding a new project with less than 3 characters name")
-	@Issue("Will make the editing of a project fail, edit pop up gets stuck")
 	public void shortProjectNameTest() {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.editInvalidProjectName("el");
