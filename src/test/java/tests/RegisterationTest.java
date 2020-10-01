@@ -18,16 +18,16 @@ import utils.Excel;
 @Epic("Creation Of A New Account Functionality")
 public class RegisterationTest extends BaseTest {
 
-	private final String name = "Mathew Wallace";
-	private final String existingEmailMsg = "The email has already been taken.";
-	private final String captchaErrorMsg = "The captcha field is required.";
-	private final String invalidEmailMsg = "Please enter a valid email address.";
-	private final String shortPassMsg = "Please enter at least 10 characters.";
-	private final String invalidPassMsg = "The password must contain a minimum of one lower case character, one upper case character and one digit.";
-	private final String requiredFieldMsg = "This field is required.";
-	private final String validEmail = "eliassh@live.com";
-	private final String invalidEmail = "elias";
-	private final String shortPass = "jkl";
+	private final String NAME = "Mathew Wallace";
+	private final String EXISTING_EMAIL_MSG = "The email has already been taken.";
+	private final String CAPTCHA_ERROR_MSG = "The captcha field is required.";
+	private final String INVALID_EMAIL_MSG = "Please enter a valid email address.";
+	private final String SHORT_PASS_MSG = "Please enter at least 10 characters.";
+	private final String INVALID_PASS_MSG = "The password must contain a minimum of one lower case character, one upper case character and one digit.";
+	private final String REQUIRED_FIELD_MSG = "This field is required.";
+	private final String VALID_EMAIL = "eliassh@live.com";
+	private final String INVALID_EMAIL = "elias";
+	private final String SHORT_PASS = "jkl";
 
 	@Test(priority = 1, description = "Registeration feature test")
 	@Story("When registering with valid credentials but with an exisitng email address, an error message should appear")
@@ -36,8 +36,8 @@ public class RegisterationTest extends BaseTest {
 		AboutPage ap = new AboutPage(driver);
 		ap.clickRegisterLink();
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccount(name, Configuration.readProperty("username"));
-		Assert.assertTrue((cp.getFailureMsg().contains(existingEmailMsg)));
+		cp.createNewAccount(NAME, Configuration.readProperty("username"));
+		Assert.assertTrue((cp.getFailureMsg().contains(EXISTING_EMAIL_MSG)));
 	}
 
 	@Test(priority = 2, description = "Registeratrion feature without captcha test")
@@ -52,8 +52,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccount(name, validEmail);
-		Assert.assertTrue((cp.getFailureMsg()).contains(captchaErrorMsg));
+		cp.createNewAccount(NAME, VALID_EMAIL);
+		Assert.assertTrue((cp.getFailureMsg()).contains(CAPTCHA_ERROR_MSG));
 	}
 
 	@Test(priority = 3, description = "Registeration feature with invalid email test")
@@ -68,8 +68,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccountWithInvalidEmail(name, invalidEmail);
-		Assert.assertEquals(cp.getInvalidEmailMsg(), invalidEmailMsg);
+		cp.createNewAccountWithInvalidEmail(NAME, INVALID_EMAIL);
+		Assert.assertEquals(cp.getInvalidEmailMsg(), INVALID_EMAIL_MSG);
 	}
 
 	@Test(priority = 4, description = "Registeration feature with short password test")
@@ -85,8 +85,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccountWithInvalidPassword(name, validEmail, shortPass);
-		Assert.assertEquals(cp.getInvalidPasswordMsg(), shortPassMsg);
+		cp.createNewAccountWithInvalidPassword(NAME, VALID_EMAIL, SHORT_PASS);
+		Assert.assertEquals(cp.getInvalidPasswordMsg(), SHORT_PASS_MSG);
 	}
 
 	@Test(priority = 5, dataProvider = "getDataFromExcel", description = "Registeration feature with invalid password test")
@@ -104,8 +104,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccountWithInvalidPassword(name, validEmail, passowrd);
-		Assert.assertEquals(cp.getInvalidPasswordMsg(), invalidPassMsg);
+		cp.createNewAccountWithInvalidPassword(NAME, VALID_EMAIL, passowrd);
+		Assert.assertEquals(cp.getInvalidPasswordMsg(), INVALID_PASS_MSG);
 	}
 
 	@Test(priority = 6, description = "Registeration feature with empty email field test")
@@ -120,8 +120,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccountWithInvalidEmail(name, "");
-		Assert.assertEquals(cp.getInvalidEmailMsg(), requiredFieldMsg);
+		cp.createNewAccountWithInvalidEmail(NAME, "");
+		Assert.assertEquals(cp.getInvalidEmailMsg(), REQUIRED_FIELD_MSG);
 	}
 
 	@Test(priority = 7, description = "Registeration feature with empty password field test")
@@ -138,8 +138,8 @@ public class RegisterationTest extends BaseTest {
 			cp.clickRegister();
 		}
 		CreateNewAccountPage cp = new CreateNewAccountPage(driver);
-		cp.createNewAccountWithInvalidPassword(name, validEmail, "");
-		Assert.assertEquals(cp.getInvalidPasswordMsg(), requiredFieldMsg);
+		cp.createNewAccountWithInvalidPassword(NAME, VALID_EMAIL, "");
+		Assert.assertEquals(cp.getInvalidPasswordMsg(), REQUIRED_FIELD_MSG);
 	}
 
 	// will provide different variation of invalid passwords

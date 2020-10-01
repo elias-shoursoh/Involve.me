@@ -16,8 +16,8 @@ import utils.Configuration;
 @Epic("Forgot Password Feature's Functionality")
 public class ForgotPasswordTest extends BaseTest {
 
-	private final String successMsg = "A reset link has been sent to the email address, if it has been used to register for an account.";
-	private final String failMsg = "We can't find a user with that e-mail address.";
+	private final String SUCCESS_MSG = "A reset link has been sent to the email address, if it has been used to register for an account.";
+	private final String FAIL_MSG = "We can't find a user with that e-mail address.";
 
 	@Test(priority = 1, description = "Frogot password feature test with a valid email address")
 	@Story("When sending a password reset link to a valid email address, a success message should appear")
@@ -29,7 +29,7 @@ public class ForgotPasswordTest extends BaseTest {
 		lp.clickForgotPassword();
 		ForgotPasswordPage fp = new ForgotPasswordPage(driver);
 		fp.sendPasswordResetLink(Configuration.readProperty("username"));
-		Assert.assertEquals(fp.getSuccessMsg(), successMsg);
+		Assert.assertEquals(fp.getSuccessMsg(), SUCCESS_MSG);
 	}
 
 	@Test(priority = 2, dependsOnMethods = {
@@ -39,6 +39,6 @@ public class ForgotPasswordTest extends BaseTest {
 	public void invalidEmailTest() {
 		ForgotPasswordPage fp = new ForgotPasswordPage(driver);
 		fp.sendPasswordResetLink("something@gmail.com");
-		Assert.assertEquals(fp.getInvalidEmailAddMsg(), failMsg);
+		Assert.assertEquals(fp.getInvalidEmailAddMsg(), FAIL_MSG);
 	}
 }

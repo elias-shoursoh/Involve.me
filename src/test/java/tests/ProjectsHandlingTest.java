@@ -25,12 +25,12 @@ import utils.Excel;
 @Epic("Projects' Creation And Editing Features")
 public class ProjectsHandlingTest extends BaseTest {
 
-	private final String requiredFieldMsg = "This field is required.";
-	private final String shortNameMsg = "Please enter at least 3 characters.";
-	private final String project = "survey";
-	private final String initName = "for testing";
-	private final String secondaryName = "for another testing";
-	private final String pageKind = "outcome pages";
+	private final String REQUIRED_FIELD_MSG = "This field is required.";
+	private final String SHORT_NAME_MSG = "Please enter at least 3 characters.";
+	private final String PROJECT = "survey";
+	private final String INITNAME = "for testing";
+	private final String SECONDARY_NAME = "for another testing";
+	private final String PAGE_KIND = "outcome pages";
 
 	@Test(priority = 1, alwaysRun = true, description = "Log in to account")
 	public void logIn() {
@@ -49,7 +49,7 @@ public class ProjectsHandlingTest extends BaseTest {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.createNewProject();
 		ProjectTypePage ptp = new ProjectTypePage(driver);
-		ptp.selectProject(project);
+		ptp.selectProject(PROJECT);
 		TemplatesPage tp = new TemplatesPage(driver);
 		tp.chooseTemplate("Blank");
 		ProjectEditPage pep = new ProjectEditPage(driver);
@@ -65,7 +65,7 @@ public class ProjectsHandlingTest extends BaseTest {
 	public void emptyProjectNameTest() {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.editInvalidProjectName("");
-		Assert.assertEquals(pep.getProjectNameErrorMsg(), requiredFieldMsg);
+		Assert.assertEquals(pep.getProjectNameErrorMsg(), REQUIRED_FIELD_MSG);
 	}
 
 	// Bug in web site
@@ -76,7 +76,7 @@ public class ProjectsHandlingTest extends BaseTest {
 	public void shortProjectNameTest() {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.editInvalidProjectName("el");
-		Assert.assertEquals(pep.getProjectNameErrorMsg(), shortNameMsg);
+		Assert.assertEquals(pep.getProjectNameErrorMsg(), SHORT_NAME_MSG);
 	}
 
 	@Test(priority = 5, dependsOnMethods = { "prepareProjectTest" }, description = "Adding a new slide to project test")
@@ -85,7 +85,7 @@ public class ProjectsHandlingTest extends BaseTest {
 	@Description("Adding a new slide to project")
 	public void addNewSlideTest() {
 		ProjectEditPage pep = new ProjectEditPage(driver);
-		pep.editProjectPrep(initName, pageKind);
+		pep.editProjectPrep(INITNAME, PAGE_KIND);
 		int before = pep.getSlidesNumber();
 		pep.addNewSlide();
 		int after = pep.getSlidesNumber();
@@ -112,7 +112,7 @@ public class ProjectsHandlingTest extends BaseTest {
 		ProjectEditPage pep = new ProjectEditPage(driver);
 		pep.clickSettings();
 		GeneralSettingsPage gp = new GeneralSettingsPage(driver);
-		gp.editProjectName(secondaryName);
+		gp.editProjectName(SECONDARY_NAME);
 		gp.clickEditProject();
 		pep = new ProjectEditPage(driver);
 		Assert.assertEquals(pep.getProjectName(), "FOR ANOTHER TESTING");
@@ -160,8 +160,8 @@ public class ProjectsHandlingTest extends BaseTest {
 		pp.clickBackToOverview();
 		ProjectsPage pjp = new ProjectsPage(driver);
 		pjp.selectTab("Published");
-		pjp.searchProject(secondaryName);
-		Assert.assertTrue(pjp.isProjectFoundAfterSearch(secondaryName));
+		pjp.searchProject(SECONDARY_NAME);
+		Assert.assertTrue(pjp.isProjectFoundAfterSearch(SECONDARY_NAME));
 	}
 
 	@Test(priority = 11, dependsOnMethods = { "publishProjectTest" }, description = "Deleting a published project test")
@@ -170,7 +170,7 @@ public class ProjectsHandlingTest extends BaseTest {
 	public void deleteProjectFromPublishedSectionTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
-		pp.deletePublishedProject(secondaryName);
+		pp.deletePublishedProject(SECONDARY_NAME);
 		int after = pp.getProjectsNumber();
 		Assert.assertTrue(after == before - 1);
 	}

@@ -21,7 +21,7 @@ import utils.Configuration;
 @Epic("Templates Feature's Functionality")
 public class TemplatesTest extends BaseTest {
 
-	private String feedbackMsg = "Thank you for participating!";
+	private String FEEDBACK_MSG = "Thank you for participating!";
 
 	@Test(priority = 1, alwaysRun = true, description = "Log in to account")
 	public void logIn() {
@@ -136,7 +136,7 @@ public class TemplatesTest extends BaseTest {
 		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
 		tcp.tryHistoryTemplate("desktop");
 		try {
-			Assert.assertEquals(tcp.getFeedbackText(), feedbackMsg);
+			Assert.assertEquals(tcp.getFeedbackText(), FEEDBACK_MSG);
 		} finally {
 			tcp.clickCancel();
 		}
@@ -154,7 +154,7 @@ public class TemplatesTest extends BaseTest {
 		TemplateConfirmationPage tcp = new TemplateConfirmationPage(driver);
 		tcp.tryHistoryTemplate("mobile");
 		try {
-			Assert.assertEquals(tcp.getFeedbackText(), feedbackMsg);
+			Assert.assertEquals(tcp.getFeedbackText(), FEEDBACK_MSG);
 		} finally {
 			tcp.clickCancel();
 		}

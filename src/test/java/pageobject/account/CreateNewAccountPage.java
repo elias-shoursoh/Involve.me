@@ -39,7 +39,7 @@ public class CreateNewAccountPage extends TopMenuBar {
 	@FindBy(css = "#register-password-error")
 	private WebElement invalidPasswordMsg;
 
-	private final String notAvailabe = "(not available)";
+	private final String NOT_AVAILABLE = "(not available)";
 	Random rand;
 
 	// constructor
@@ -91,7 +91,7 @@ public class CreateNewAccountPage extends TopMenuBar {
 
 	// method that checks if an organization was already registered to site
 	private boolean isNotAvailable() {
-		return (getText(availability).equals(notAvailabe));
+		return (getText(availability).equals(NOT_AVAILABLE));
 	}
 
 	// method that fills the name and organization in new account form

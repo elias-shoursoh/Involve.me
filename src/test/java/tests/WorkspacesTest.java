@@ -20,15 +20,15 @@ import utils.Configuration;
 @Epic("WorkSpaces Creation and Editing Functionality")
 public class WorkspacesTest extends BaseTest {
 
-	private String projectName = "for testing";
-	private String finalSlideType = "Thank you page";
-	private String loginPageTitle = "Log in";
-	private String projectType = "quiz";
-	private String templateType = "Blank";
-	private String workspaceName = "elias";
-	private String newName = "elias_test";
-	private String currentWorkspace = "My Workspace";
-	private String noProjectFoundMsg = "No project matches the criteria";
+	private String PROJECT_NAME = "for testing";
+	private String FINAL_SLIDE_TYPE = "Thank you page";
+	private String LOGIN_PAGE_TITLE = "Log in";
+	private String PROJECT_TYPE = "quiz";
+	private String TEMPLATE_TYPE = "Blank";
+	private String WORKSPACE_NAME = "elias";
+	private String NEW_NAME = "elias_test";
+	private String CURRENT_WORKSPACE = "My Workspace";
+	private String NO_PROJECT_FOUND_MSG = "No project matches the criteria";
 
 	@Test(priority = 1, alwaysRun = true, description = "Log in to site")
 	public void logIn() {
@@ -47,7 +47,7 @@ public class WorkspacesTest extends BaseTest {
 	public void createNewWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getWorkspacesNumber();
-		pp.createWorkSpace(workspaceName);
+		pp.createWorkSpace(WORKSPACE_NAME);
 		int after = pp.getWorkspacesNumber();
 		Assert.assertTrue(after == before + 1);
 	}
@@ -57,8 +57,8 @@ public class WorkspacesTest extends BaseTest {
 	@Description("Renaming an existing workspace")
 	public void renameWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
-		pp.renameWorkSpace(workspaceName, newName);
-		Assert.assertTrue(pp.isWorkSpaceFound(newName));
+		pp.renameWorkSpace(WORKSPACE_NAME, NEW_NAME);
+		Assert.assertTrue(pp.isWorkSpaceFound(NEW_NAME));
 	}
 
 	@Test(priority = 4, dependsOnMethods = { "renameWorkspaceTest" }, description = "Workspaces deletion feature test")
@@ -67,7 +67,7 @@ public class WorkspacesTest extends BaseTest {
 	public void deleteWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getWorkspacesNumber();
-		pp.deleteWorkspace(newName);
+		pp.deleteWorkspace(NEW_NAME);
 		int after = pp.getWorkspacesNumber();
 		Assert.assertTrue(after == before - 1);
 	}
@@ -79,7 +79,7 @@ public class WorkspacesTest extends BaseTest {
 	public void numberOfExistingPorjectsTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int numberFromProjectsBlock = pp.getProjectsNumber();
-		int numberFromWorkspacesBlock = pp.getProjectsNumberFromWorkspacesBlock(currentWorkspace);
+		int numberFromWorkspacesBlock = pp.getProjectsNumberFromWorkspacesBlock(CURRENT_WORKSPACE);
 		Assert.assertTrue(numberFromProjectsBlock == numberFromWorkspacesBlock);
 	}
 
@@ -92,11 +92,11 @@ public class WorkspacesTest extends BaseTest {
 		int before = pp.getProjectsNumber();
 		pp.createNewProject();
 		ProjectTypePage ptp = new ProjectTypePage(driver);
-		ptp.selectProject(projectType);
+		ptp.selectProject(PROJECT_TYPE);
 		TemplatesPage tp = new TemplatesPage(driver);
-		tp.chooseTemplate(templateType);
+		tp.chooseTemplate(TEMPLATE_TYPE);
 		ProjectEditPage pep = new ProjectEditPage(driver);
-		pep.editProjectPrep(projectName, finalSlideType);
+		pep.editProjectPrep(PROJECT_NAME, FINAL_SLIDE_TYPE);
 		pep.clickSaveAndExit();
 		pp = new ProjectsPage(driver);
 		int after = pp.getProjectsNumber();
@@ -108,8 +108,8 @@ public class WorkspacesTest extends BaseTest {
 	@Description("Search for an existing project")
 	public void searchProjectTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
-		pp.searchProject(projectName);
-		Assert.assertTrue(pp.isProjectFoundAfterSearch(projectName));
+		pp.searchProject(PROJECT_NAME);
+		Assert.assertTrue(pp.isProjectFoundAfterSearch(PROJECT_NAME));
 		pp.clickSearchBtn();
 	}
 
@@ -119,7 +119,7 @@ public class WorkspacesTest extends BaseTest {
 	public void searchForNonExistingProjectTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.searchProject("Some project");
-		Assert.assertEquals(pp.getNoProjectFoundMsg(), noProjectFoundMsg);
+		Assert.assertEquals(pp.getNoProjectFoundMsg(), NO_PROJECT_FOUND_MSG);
 		pp.clickSearchBtn();
 	}
 
@@ -130,7 +130,7 @@ public class WorkspacesTest extends BaseTest {
 	public void projectDeletionCancelationTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
-		pp.cancelProjectDeletion(projectName);
+		pp.cancelProjectDeletion(PROJECT_NAME);
 		int after = pp.getProjectsNumber();
 		Assert.assertTrue(before == after);
 	}
@@ -143,7 +143,7 @@ public class WorkspacesTest extends BaseTest {
 	public void deleteProjectFromWorkspaceTest() {
 		ProjectsPage pp = new ProjectsPage(driver);
 		int before = pp.getProjectsNumber();
-		pp.deleteProject(projectName);
+		pp.deleteProject(PROJECT_NAME);
 		int after = pp.getProjectsNumber();
 		Assert.assertTrue(after == before - 1);
 	}
@@ -153,6 +153,6 @@ public class WorkspacesTest extends BaseTest {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.logout();
 		LoginPage lp = new LoginPage(driver);
-		Assert.assertEquals(lp.getTitle(), loginPageTitle);
+		Assert.assertEquals(lp.getTitle(), LOGIN_PAGE_TITLE);
 	}
 }

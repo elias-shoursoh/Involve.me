@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -35,7 +36,7 @@ public class BaseTest {
 			createRemoteDriver(Configuration.readProperty("browserType"));
 		}
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		testContext.setAttribute("WebDriver", this.driver);
 		driver.get(Configuration.readProperty("TestedSiteUrl"));
 	}
@@ -88,8 +89,10 @@ public class BaseTest {
 			capabilities.setVersion("85.0");
 			break;
 		}
-		capabilities.setCapability("enableVNC", true);
-		capabilities.setCapability("enableVideo", true);
+		capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+			    "enableVNC", true,
+			    "enableVideo", true
+			));
 		capabilities.setCapability("videoName", this.getClass().getName() + "_"
 				+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss")));
 		capabilities.setCapability("screenResolution", "1280x1024x24");

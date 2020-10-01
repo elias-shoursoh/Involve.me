@@ -7,19 +7,31 @@ import java.util.Properties;
 
 /* Read data from config.properties file */
 public class Configuration {
-	// Load a properties file and retrieve the property value.
-	public static String readProperty(String key) {
-		String value = "";
+
+	// variable that will include one instance of the class
+	private static Configuration configInstance = null;
+	private static Properties prop;
+
+	// private constructor
+	private Configuration() {
 		try (InputStream input = new FileInputStream(".\\src\\test\\java\\data\\config.properties")) {
-			Properties prop = new Properties();
+			prop = new Properties();
 			// load a properties file
 			prop.load(input);
-			// get the property value
-			value = prop.getProperty(key);
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	// Load a properties file and retrieve the property value.
+	public static String readProperty(String key) {
+		String value = "";
+		if (configInstance == null) {
+			configInstance = new Configuration();
+		}
+		// get the property value
+		value = prop.getProperty(key);
+
 		return value;
 	}
 }

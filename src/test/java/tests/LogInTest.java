@@ -19,9 +19,9 @@ import utils.Excel;
 @Epic("Login Feature's Functionality")
 public class LogInTest extends BaseTest {
 
-	private final String title = "My Workspace";
-	private final String invalidLogInMsg = "These credentials do not match our records.";
-	private final String logInPageTitle = "Log in";
+	private final String TITLE = "My Workspace";
+	private final String INVALID_LOGIN_MSG = "These credentials do not match our records.";
+	private final String LOGIN_PAGE_TITLE = "Log in";
 
 	@Test(priority = 1, description = "Valid log in")
 	@Story("When logging with a valid username and password project page should appear")
@@ -32,7 +32,7 @@ public class LogInTest extends BaseTest {
 		LoginPage lp = new LoginPage(driver);
 		lp.logIn(Configuration.readProperty("username"), Configuration.readProperty("password"));
 		ProjectsPage pp = new ProjectsPage(driver);
-		Assert.assertEquals(pp.getTitle(), title);
+		Assert.assertEquals(pp.getTitle(), TITLE);
 	}
 
 	@Test(priority = 2, description = "Log out from site")
@@ -42,7 +42,7 @@ public class LogInTest extends BaseTest {
 		ProjectsPage pp = new ProjectsPage(driver);
 		pp.logout();
 		LoginPage lp = new LoginPage(driver);
-		Assert.assertEquals(lp.getTitle(), logInPageTitle);
+		Assert.assertEquals(lp.getTitle(), LOGIN_PAGE_TITLE);
 	}
 
 	@Test(priority = 3, dataProvider = "getDataFromExcel", description = "Invalid log in")
@@ -55,7 +55,7 @@ public class LogInTest extends BaseTest {
 		// test case
 		// lp.clickLogin();
 		lp.logIn(username, password);
-		Assert.assertEquals(lp.getInvalidCredsMsg(), invalidLogInMsg);
+		Assert.assertEquals(lp.getInvalidCredsMsg(), INVALID_LOGIN_MSG);
 	}
 
 	@DataProvider
