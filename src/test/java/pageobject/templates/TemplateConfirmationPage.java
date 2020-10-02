@@ -16,30 +16,31 @@ public class TemplateConfirmationPage extends BasePage {
 	private WebElement useTemplateBtn;
 	@FindBy(css = "div.e-close img")
 	private WebElement cancelBtn;
-	@FindBy(css = "[title=\"desktop\"]")
+	@FindBy(css = "[title='desktop']")
 	private WebElement desktopViewBtn;
-	@FindBy(css = "[title=\"mobile\"]")
+	@FindBy(css = "[title='mobile']")
 	private WebElement mobileViewBtn;
 	@FindBy(css = ".btn")
 	private WebElement findoutAndNextBtn;
 	@FindBy(css = ".c-button.btn")
 	private WebElement nextBtn;
-	@FindBy(css = "[data-id=\"crrpv1w\"]")
+
+	@FindBy(css = "[data-id='crrpv1w']") // start of answers to history quiz
 	private WebElement crusadesBtn;
-	@FindBy(css = "[data-id=\"9ti9ycv\"]")
+	@FindBy(css = "[data-id='9ti9ycv']")
 	private WebElement waterGateBtn;
-	@FindBy(css = "[data-id=\"v9hu5rk\"]")
+	@FindBy(css = "[data-id='v9hu5rk']")
 	private WebElement creationOfInternetBtn;
-	@FindBy(css = "[data-id=\"b111nuu\"]")
-	private WebElement communistBtn;
+	@FindBy(css = "[data-id='b111nuu']")
+	private WebElement communistBtn; // end of answers to history quiz
 	@FindBy(css = ".e-headline .e-html-container span")
 	private WebElement thankYouMsg;
 	@FindBy(css = "div.e-headline .e-html-container")
 	private WebElement feebackTxt;
 	@FindBy(css = "p.feedback-text.correct")
-	private WebElement correctAnswerMsg;
+	private WebElement correctAnswerMsg; // message appears after right answer
 	@FindBy(css = "p.feedback-text")
-	private WebElement wrongAnswerMsg;
+	private WebElement wrongAnswerMsg; // message appears after wrong answer
 	@FindBy(css = ".c-answer.answer-behaviour")
 	private List<WebElement> asnwers;
 

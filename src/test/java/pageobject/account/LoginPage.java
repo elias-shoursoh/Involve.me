@@ -10,9 +10,9 @@ import pageobject.topbars.TopMenuBar;
 /* Login page */
 public class LoginPage extends TopMenuBar {
 
-	@FindBy(css = "[name=\"email\"]")
+	@FindBy(css = "[name='email']")
 	private WebElement emailField;
-	@FindBy(css = "[name=\"password\"]")
+	@FindBy(css = "[name='password']")
 	private WebElement passwordField;
 	@FindBy(css = ".btn.btn-lg")
 	private WebElement loginBtn;
@@ -21,7 +21,7 @@ public class LoginPage extends TopMenuBar {
 	@FindBy(css = "div:nth-child(6) a")
 	private WebElement forgotPasswordLink;
 	@FindBy(css = ".alert")
-	private WebElement invalidCredsMsg;
+	private WebElement invalidCredsMsg; //invalid credintials 
 	@FindBy(css = ".e-form-heading")
 	private WebElement pageTitle;
 

@@ -17,7 +17,7 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "input#project-name")
 	private WebElement projectNameField;
 	@FindBy(css = ".project-name")
-	private WebElement projectName;
+	private WebElement projectName; // project name as displayed in page - upper left corner
 	@FindBy(css = ".swal-button.swal-button--confirm")
 	private WebElement startEditingBtn;
 	@FindBy(css = "#bs-example-navbar-collapse-1 li:nth-child(4) a")
@@ -37,10 +37,10 @@ public class ProjectEditPage extends BasePage {
 										// before the last
 	@FindBy(css = ".swal-button--confirm")
 	private WebElement confirmDeleteSlideBtn;
-	@FindBy(css = "[for=\"select-default\"]")
-	private WebElement thankYouPageTypeBtn;
-	@FindBy(css = "[for=\"select-outcomes\"]")
-	private WebElement outcomePagesTypeBtn;
+	@FindBy(css = "[for='select-default']")
+	private WebElement thankYouPageTypeBtn; // thank you page end slide
+	@FindBy(css = "[for='select-outcomes']")
+	private WebElement outcomePagesTypeBtn; // outcome page end slide
 	@FindBy(css = "div.content-item-wrapper")
 	private WebElement dropZone;
 	@FindBy(css = ".has-rating")
@@ -48,20 +48,18 @@ public class ProjectEditPage extends BasePage {
 	@FindBy(css = "div.c-data-collection-container")
 	private WebElement contactFormContent;
 	@FindBy(css = ".content-item-edit-close .save-close")
-	private WebElement saveAndCloseBtn;
+	private WebElement saveAndCloseBtn; // appears after dragging an element to page
 	@FindBy(css = ".e-save-succes")
 	private WebElement noLinkWarningPopUp;
 	@FindBy(css = ".swal-button--cancelCustom")
 	private WebElement closeWarningPopUpBtn;
 	@FindBy(css = "label#project-name-error")
-	private WebElement projectNameErrorMsg; // in New project pop up
+	private WebElement projectNameErrorMsg; // in new project pop up
 	@FindBy(css = ".new-project-modal")
 	private WebElement newProjectPopUp;
 
-	@FindBy(css = ".e-pages-container.fitsNavigation .e-page-management")
-	private List<WebElement> pages;
 	@FindBy(css = "div.content-menu-item")
-	private List<WebElement> contentList;
+	private List<WebElement> contentList; // the list of the content element offered to be added to any project
 	@FindBy(css = ".e-pages-container .e-page-management")
 	private List<WebElement> slidesList;
 	@FindBy(css = "[title=\"Delete page\"]")

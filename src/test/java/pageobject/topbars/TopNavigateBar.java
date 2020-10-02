@@ -13,17 +13,17 @@ public class TopNavigateBar extends BasePage {
 
 	@FindBy(css = "#nav-dropdown")
 	private WebElement accountBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/logout\"]")
+	@FindBy(css = "[href='https://app.involve.me/logout']")
 	private WebElement logoutBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/projects\"]")
+	@FindBy(css = "[href='https://app.involve.me/projects']")
 	private WebElement projectsBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/templates\"]")
+	@FindBy(css = "[href='https://app.involve.me/templates']")
 	private WebElement templatesBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/analytics\"]")
+	@FindBy(css = "[href='https://app.involve.me/analytics']")
 	private WebElement analyticsBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/integrations\"]")
+	@FindBy(css = "[href='https://app.involve.me/integrations']")
 	private WebElement integrationsBtn;
-	@FindBy(css = "[href=\"https://app.involve.me/affiliate\"]")
+	@FindBy(css = "[href='https://app.involve.me/affiliate']")
 	private WebElement affiliateBtn;
 
 	// constructor

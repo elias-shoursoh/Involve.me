@@ -17,7 +17,7 @@ public class ProjectsPage extends TopNavigateBar {
 	private WebElement startBtn;
 	@FindBy(css = ".font-medium button")
 	private WebElement createNewWorkspaceBtn;
-	@FindBy(css = "[data-icon=\"chevron-down\"]")
+	@FindBy(css = "[data-icon='chevron-down']")
 	private WebElement workspaceEditBtn;
 	@FindBy(css = ".mr-3 .hover\\:bg-gray-600")
 	private WebElement renameWorkspaceBtn;
@@ -27,7 +27,7 @@ public class ProjectsPage extends TopNavigateBar {
 	private WebElement renameField;
 	@FindBy(css = "#confirm-create-button")
 	private WebElement confirmationBtn; // Rename , create, and delete workspace buttons
-	@FindBy(css = "[placeholder=\"Workspace name\"]")
+	@FindBy(css = "[placeholder='Workspace name']")
 	private WebElement newWorkspaceNameField;
 	@FindBy(css = ".h-12")
 	private WebElement deleteWorkspaceField;
@@ -35,13 +35,13 @@ public class ProjectsPage extends TopNavigateBar {
 	private WebElement createProjectBtn; // Appears when there is at least one project added
 	@FindBy(css = ".form-select")
 	private WebElement sortBtn;
-	@FindBy(css = "[data-icon=\"search\"]")
+	@FindBy(css = "[data-icon='search']")
 	private WebElement searchBtn;
-	@FindBy(css = "[type=\"text\"]")
+	@FindBy(css = "[type='text']")
 	private WebElement searchField;
 	@FindBy(css = "#confirm-delete-button")
 	private WebElement confirmDeleteProjectBtn; // Project deletion button
-	@FindBy(css = "form [type=\"button\"]")
+	@FindBy(css = "form [type='button']")
 	private WebElement cancelProjectDeletionBtn; // Project cancel deletion button
 	@FindBy(css = ".e-save-succes")
 	private WebElement noLinkWarningPopUp;

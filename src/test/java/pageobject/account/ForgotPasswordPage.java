@@ -10,9 +10,9 @@ import pageobject.basepage.BasePage;
 /* Forgot password page */
 public class ForgotPasswordPage extends BasePage {
 
-	@FindBy(css = "[name=\"email\"]")
+	@FindBy(css = "[name='email']")
 	private WebElement emailAddField;
-	@FindBy(css = "[type=\"submit\"]")
+	@FindBy(css = "[type='submit']")
 	private WebElement sendPassResetBtn;
 	@FindBy(css = ".alert-danger")
 	private WebElement invalidUserMsg;

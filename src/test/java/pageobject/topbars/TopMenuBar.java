@@ -10,9 +10,9 @@ import pageobject.basepage.BasePage;
 /*Top menu bar - the bar that appears on the top of screen prior to log in */
 public class TopMenuBar extends BasePage {
 
-	@FindBy(css = "[href=\"https://app.involve.me/login\"]")
+	@FindBy(css = "[href='https://app.involve.me/login']")
 	private WebElement loginLink;
-	@FindBy(css = "#frontend-navbar-collapse [href=\"https://app.involve.me/register\"]")
+	@FindBy(css = "#frontend-navbar-collapse [href='https://app.involve.me/register']")
 	private WebElement registerLink;
 
 	// constructor

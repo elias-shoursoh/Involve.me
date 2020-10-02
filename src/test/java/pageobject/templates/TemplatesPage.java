@@ -15,9 +15,9 @@ import pageobject.topbars.TopNavigateBar;
 public class TemplatesPage extends TopNavigateBar {
 
 	@FindBy(css = "a#filter-all")
-	private WebElement allCategory;
+	private WebElement allCategory; // category side tab
 	@FindBy(css = "a#filter-all span")
-	private WebElement allCatNumber;
+	private WebElement allCatNumber; // the number that appears to category name in the side tab
 	@FindBy(css = "#filter-quiz")
 	private WebElement quizCategory;
 	@FindBy(css = "#filter-quiz span")

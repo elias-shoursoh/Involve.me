@@ -15,23 +15,19 @@ public class CreateNewAccountPage extends TopMenuBar {
 	JavascriptExecutor executor;
 
 	@FindBy(css = "#user-name")
-	private WebElement nameField;
+	private WebElement nameField; // personal name field
 	@FindBy(css = "#organization-name")
-	private WebElement organizationField;
-	@FindBy(css = "[type=\"email\"]")
+	private WebElement organizationField; // organization name field
+	@FindBy(css = "[type='email']")
 	private WebElement emailField;
 	@FindBy(css = "#register-password")
 	private WebElement passwordField;
-	@FindBy(css = "#recaptcha-anchor")
-	private WebElement notRobotCheckBox;
-	@FindBy(css = "iframe[role=\"presentation\"]")
-	private WebElement notRobotFrame;
 	@FindBy(css = "input[type='checkbox']")
-	private WebElement termsCheckBox;
+	private WebElement termsCheckBox; // accept terms check box
 	@FindBy(css = ".btn-lg")
 	private WebElement registerBtn;
 	@FindBy(css = "#info-url")
-	private WebElement availability;
+	private WebElement availability; // organization's availability/non availability message
 	@FindBy(css = ".alert-danger")
 	private WebElement failureMsg;
 	@FindBy(css = "#email-error")
