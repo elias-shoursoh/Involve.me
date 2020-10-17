@@ -4,7 +4,7 @@
 	<listeners>
 		<listener class-name="utils.ListenerClass"></listener>
 	</listeners>
-	<test thread-count="5" name="Test">
+	<test thread-count="5" name="Functionality">
 		<classes>
 			<class name="tests.LogInTest" />
 			<class name="tests.ForgotPasswordTest" />
